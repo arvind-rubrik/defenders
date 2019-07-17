@@ -1,7 +1,7 @@
 import docker_database as database
 import pandas
 import sys
-
+import numpy
 
 db = database.get_db()
 csv_file = sys.argv[1]
@@ -28,7 +28,15 @@ def insert_rule_result(db, result):
     db.commit()
 
 
+def get_rules(csv):
+    csv.sort_values(['TITLE_ID'])
+    grp = csv.groupby("TITLE_ID")["TITLE_TEXT"].apply(lambda obj: obj.loc[numpy.random.choice(obj.index)])
+    print(grp, )
 
-for index, row in csv_contents.iterrows():
-    result = compliance_run_result(row["TITLE_ID"], row["NOTES"], row["RESULT"], "AWS", row["REGION"])
-    insert_rule_result(db, result)
+
+def insert_all():
+    for index, row in csv_contents.iterrows():
+        result = compliance_run_result(row["TITLE_ID"], row["NOTES"], row["RESULT"], "AWS", row["REGION"])
+        insert_rule_result(db, result)
+
+get_rules(csv_contents)
