@@ -1,0 +1,404 @@
+[0;36m                          _
+  _ __  _ __ _____      _| | ___ _ __
+ | '_ \| '__/ _ \ \ /\ / / |/ _ \ '__|
+ | |_) | | | (_) \ V  V /| |  __/ |
+ | .__/|_|  \___/ \_/\_/ |_|\___|_|v2.1.0
+ |_|[0;39m[0;34m the handy cloud security tool[0;39m
+
+[1;33m Date: Thu 18 Jul 2019 12:38:02 AM IST
+
+[0;39m Colors code for results: 
+[1;33m INFO (Information)[0;39m,[1;32m PASS (Recommended value)[0;39m, [1;31m FAIL (Fix required)[0;39m, [0;35m Not Scored [0;39m
+
+ This report is being generated using credentials below:
+
+ AWS-CLI Profile: [1;33m[default][0;39m AWS API Region: [1;33m[us-west-2][0;39m AWS Filter Region: [1;33m[all][0;39m
+
+ Caller Identity:
+------------------------------------------------------------
+|                     GetCallerIdentity                    |
++---------+------------------------------------------------+
+|  Account|  073829439974                                  |
+|  Arn    |  arn:aws:iam::073829439974:user/arvind.batra   |
+|  UserId |  AIDARCMET3HTB5EOJJ7VN                         |
++---------+------------------------------------------------+
+
+
+[0;35m 1.0 Identity and Access Management - [group1] ********************** [0;39m
+
+[0;35m 0.1 Generating AWS IAM Credential Report... [0;39m
+
+[0;34m 1.1 [0;39m [check11] Avoid the use of the root account (Scored)
+      [1;33m INFO! Root account last accessed (password key_1 key_2): 2019-06-07T22:18:55+00:00 N/A N/A [0;39m
+
+[0;34m 1.2 [0;39m [check12] Ensure multi-factor authentication (MFA) is enabled for all IAM users that have a console password (Scored)
+      [1;31m FAIL! User anant.mahajan has Password enabled but MFA disabled [0;39m
+      [1;31m FAIL! User sakshi.kathuria has Password enabled but MFA disabled [0;39m
+
+[0;34m 1.3 [0;39m [check13] Ensure credentials unused for 90 days or greater are disabled (Scored)
+      [1;31m FAIL! User "anandh.ravindran" has not logged in during the last 90 days  [0;39m
+      [1;32m PASS![0;39m User "anant.mahajan" found with credentials used in the last 90 days
+      [1;32m PASS![0;39m User "arijit.banerjee" found with credentials used in the last 90 days
+      [1;32m PASS![0;39m User "arvind.batra" found with credentials used in the last 90 days
+      [1;31m FAIL! User "ben.southward" has not logged in during the last 90 days  [0;39m
+      [1;31m FAIL! User "deepshikha" has not logged in during the last 90 days  [0;39m
+      [1;32m PASS![0;39m User "jai.shankar" found with credentials used in the last 90 days
+      [1;32m PASS![0;39m User "kapil.garg" found with credentials used in the last 90 days
+      [1;32m PASS![0;39m User "nishant.pathak" found with credentials used in the last 90 days
+      [1;32m PASS![0;39m User "nithya" found with credentials used in the last 90 days
+      [1;32m PASS![0;39m User "nitish.kumar@rubrik.com" found with credentials used in the last 90 days
+      [1;32m PASS![0;39m User "pankajkumar" found with credentials used in the last 90 days
+      [1;32m PASS![0;39m User "praveen.sp" found with credentials used in the last 90 days
+      [1;32m PASS![0;39m User "prudhvi.dharmana" found with credentials used in the last 90 days
+      [1;32m PASS![0;39m User "rohit.mohite" found with credentials used in the last 90 days
+      [1;32m PASS![0;39m User "sai.katuri" found with credentials used in the last 90 days
+      [1;32m PASS![0;39m User "sakshi.kathuria" found with credentials used in the last 90 days
+      [1;32m PASS![0;39m User "saurabh.vashisth" found with credentials used in the last 90 days
+      [1;32m PASS![0;39m User "suvarna.ahire" found with credentials used in the last 90 days
+
+[0;34m 1.4 [0;39m [check14] Ensure access keys are rotated every 90 days or less (Scored)
+      [1;31m FAIL!  arijit.banerjee has not rotated access key1 in over 90 days. [0;39m
+      [1;31m FAIL!  cloud-on-full-ec2 has not rotated access key1 in over 90 days. [0;39m
+      [1;31m FAIL!  deepak.sheoran has not rotated access key1 in over 90 days. [0;39m
+      [1;31m FAIL!  deepshikha has not rotated access key1 in over 90 days. [0;39m
+      [1;31m FAIL!  DevCloudOnGroup4.2 has not rotated access key1 in over 90 days. [0;39m
+      [1;31m FAIL!  DummyExperiment has not rotated access key1 in over 90 days. [0;39m
+      [1;31m FAIL!  it-ops has not rotated access key1 in over 90 days. [0;39m
+      [1;31m FAIL!  it-read-only-user has not rotated access key1 in over 90 days. [0;39m
+      [1;31m FAIL!  kapil.garg has not rotated access key1 in over 90 days. [0;39m
+      [1;31m FAIL!  nis-39022 has not rotated access key1 in over 90 days. [0;39m
+      [1;31m FAIL!  nishant.pathak has not rotated access key1 in over 90 days. [0;39m
+      [1;31m FAIL!  nithya has not rotated access key1 in over 90 days. [0;39m
+      [1;31m FAIL!  nitish.kumar@rubrik.com has not rotated access key1 in over 90 days. [0;39m
+      [1;31m FAIL!  pankajkumar has not rotated access key1 in over 90 days. [0;39m
+      [1;31m FAIL!  rohit.mohite has not rotated access key1 in over 90 days. [0;39m
+      [1;31m FAIL!  spark-cloud-accounts-dev-101-23a9dca8-4fc3-11e9-931b-34e12d5ea1d has not rotated access key1 in over 90 days. [0;39m
+      [1;31m FAIL!  suvarna.ahire has not rotated access key1 in over 90 days. [0;39m
+      [1;31m FAIL!  cloud-on-full-ec2 has not rotated access key2 in over 90 days.  [0;39m
+      [1;31m FAIL!  spark-cloud-accounts-dev-101-23a9dca8-4fc3-11e9-931b-34e12d5ea1d has not rotated access key2 in over 90 days.  [0;39m
+
+[0;34m 1.5 [0;39m [check15] Ensure IAM password policy requires at least one uppercase letter (Scored)
+      [1;32m PASS![0;39m Password Policy requires upper case
+
+[0;34m 1.6 [0;39m [check16] Ensure IAM password policy require at least one lowercase letter (Scored)
+      [1;32m PASS![0;39m Password Policy requires lower case
+
+[0;34m 1.7 [0;39m [check17] Ensure IAM password policy require at least one symbol (Scored)
+      [1;32m PASS![0;39m Password Policy requires symbol
+
+[0;34m 1.8 [0;39m [check18] Ensure IAM password policy require at least one number (Scored)
+      [1;32m PASS![0;39m Password Policy requires number
+
+[0;34m 1.9 [0;39m [check19] Ensure IAM password policy requires minimum length of 14 or greater (Scored)
+      [1;31m FAIL! Password Policy missing or weak length requirement [0;39m
+
+[0;34m 1.10 [0;39m [check110] Ensure IAM password policy prevents password reuse: 24 or greater (Scored)
+      [1;31m FAIL! Password Policy has weak reuse requirement (lower than 24) [0;39m
+
+[0;34m 1.11 [0;39m [check111] Ensure IAM password policy expires passwords within 90 days or less (Scored)
+      [1;31m FAIL! Password expiration is not set [0;39m
+
+[0;34m 1.12 [0;39m [check112] Ensure no root account access key exists (Scored)
+      [1;32m PASS![0;39m No access key 1 found for root
+      [1;32m PASS![0;39m No access key 2 found for root
+
+[0;34m 1.13 [0;39m [check113] Ensure MFA is enabled for the root account (Scored)
+      [1;32m PASS![0;39m Virtual MFA is enabled for root
+
+[0;34m 1.14 [0;39m [check114] Ensure hardware MFA is enabled for the root account (Scored)
+      [1;31m FAIL! Only Virtual MFA is enabled for root [0;39m
+
+[0;35m 1.15 [check115] Ensure security questions are registered in the AWS account (Not Scored) [0;39m
+      [1;33m INFO! No command available for check 1.15  [0;39m
+      [1;33m INFO! Login to the AWS Console as root & click on the Account  [0;39m
+      [1;33m INFO! Name -> My Account -> Configure Security Challenge Questions  [0;39m
+
+[0;34m 1.16 [0;39m [check116] Ensure IAM policies are attached only to groups or roles (Scored)
+      [1;31m FAIL! anandh.ravindran has managed policy directly attached  [0;39m
+      [1;31m FAIL! anant.mahajan has managed policy directly attached  [0;39m
+      [1;31m FAIL! anuj.agrawal has managed policy directly attached  [0;39m
+      [1;31m FAIL! arijit.banerjee has managed policy directly attached  [0;39m
+      [1;31m FAIL! arvind.batra has managed policy directly attached  [0;39m
+      [1;31m FAIL! ben.southward has managed policy directly attached  [0;39m
+      [1;31m FAIL! cloud-on-full-ec2 has managed policy directly attached  [0;39m
+      [1;31m FAIL! deepak.sheoran has managed policy directly attached  [0;39m
+      [1;31m FAIL! deepshikha has managed policy directly attached  [0;39m
+      [1;31m FAIL! DummyExperiment has managed policy directly attached  [0;39m
+      [1;31m FAIL! it-ops has managed policy directly attached  [0;39m
+      [1;31m FAIL! it-read-only-user has managed policy directly attached  [0;39m
+      [1;31m FAIL! jai.shankar has managed policy directly attached  [0;39m
+      [1;31m FAIL! kapil.garg has managed policy directly attached  [0;39m
+      [1;31m FAIL! nishant.pathak has managed policy directly attached  [0;39m
+      [1;31m FAIL! nithya has managed policy directly attached  [0;39m
+      [1;31m FAIL! nitish.kumar@rubrik.com has managed policy directly attached  [0;39m
+      [1;31m FAIL! pankajkumar has managed policy directly attached  [0;39m
+      [1;31m FAIL! praveen.sp has managed policy directly attached  [0;39m
+      [1;31m FAIL! prudhvi.dharmana has managed policy directly attached  [0;39m
+      [1;31m FAIL! rohit.mohite has managed policy directly attached  [0;39m
+      [1;31m FAIL! sai.katuri has managed policy directly attached  [0;39m
+      [1;31m FAIL! sakshi.kathuria has managed policy directly attached  [0;39m
+      [1;31m FAIL! saurabh.vashisth has managed policy directly attached  [0;39m
+      [1;31m FAIL! storm_manager_validation has managed policy directly attached  [0;39m
+      [1;31m FAIL! suvarna.ahire has managed policy directly attached  [0;39m
+
+[0;35m 1.17 [check117] Maintain current contact details (Not Scored) [0;39m
+      [1;33m INFO! No command available for check 1.17  [0;39m
+      [1;33m INFO! See section 1.17 on the CIS Benchmark guide for details  [0;39m
+
+[0;35m 1.18 [check118] Ensure security contact information is registered (Not Scored) [0;39m
+      [1;33m INFO! No command available for check 1.18  [0;39m
+      [1;33m INFO! See section 1.18 on the CIS Benchmark guide for details  [0;39m
+
+[0;35m 1.19 [check119] Ensure IAM instance roles are used for AWS resource access from instances (Not Scored) [0;39m
+      [1;33m INFO! No command available for check 1.19  [0;39m
+      [1;33m INFO! See section 1.19 on the CIS Benchmark guide for details  [0;39m
+
+[0;34m 1.20 [0;39m [check120] Ensure a support role has been created to manage incidents with AWS Support (Scored)
+      [1;31m FAIL! Support Policy not applied to any Role  [0;39m
+
+[0;35m 1.21 [check121] Do not setup access keys during initial user setup for all IAM users that have a console password (Not Scored) [0;39m
+      [1;31m FAIL! anant.mahajan has never used Access Key 1 [0;39m
+      [1;31m FAIL! arijit.banerjee has never used Access Key 1 [0;39m
+      [1;31m FAIL! kapil.garg has never used Access Key 1 [0;39m
+      [1;32m PASS![0;39m No users found with Access Key 2 never used
+
+[0;34m 1.22 [0;39m [check122] Ensure IAM policies that allow full "*:*" administrative privileges are not created (Scored)
+      [1;33m INFO! Looking for custom policies: (skipping default policies - it may take few seconds...) [0;39m
+      [1;32m PASS![0;39m No custom policy found that allow full "*:*" administrative privileges
+
+[0;35m 2.0 Logging - [group2] ********************************************* [0;39m
+
+[0;34m 2.1 [0;39m [check21] Ensure CloudTrail is enabled in all regions (Scored)
+      [1;32m PASS![0;39m it-team-cloudon-rnd-trail trail in us-east-1 is enabled for all regions
+
+[0;34m 2.2 [0;39m [check22] Ensure CloudTrail log file validation is enabled (Scored)
+      [1;32m PASS![0;39m it-team-cloudon-rnd-trail trail in us-east-1 has log file validation enabled
+
+[0;34m 2.3 [0;39m [check23] Ensure the S3 bucket CloudTrail logs to is not publicly accessible (Scored)
+      [1;32m PASS![0;39m Bucket it-team-cloudon-logs is set correctly
+
+[0;34m 2.4 [0;39m [check24] Ensure CloudTrail trails are integrated with CloudWatch Logs (Scored)
+      [1;31m FAIL! it-team-cloudon-rnd-trail trail is not logging in the last 24h or not configured (it is in us-east-1) [0;39m
+
+[0;34m 2.5 [0;39m [check25] Ensure AWS Config is enabled in all regions (Scored)
+      [1;31m FAIL! Region eu-north-1 has AWS Config disabled or not configured [0;39m
+      [1;31m FAIL! Region ap-south-1 has AWS Config disabled or not configured [0;39m
+      [1;31m FAIL! Region eu-west-3 has AWS Config disabled or not configured [0;39m
+      [1;31m FAIL! Region eu-west-2 has AWS Config disabled or not configured [0;39m
+      [1;31m FAIL! Region eu-west-1 has AWS Config disabled or not configured [0;39m
+      [1;31m FAIL! Region ap-northeast-2 has AWS Config disabled or not configured [0;39m
+      [1;31m FAIL! Region ap-northeast-1 has AWS Config disabled or not configured [0;39m
+      [1;31m FAIL! Region sa-east-1 has AWS Config disabled or not configured [0;39m
+      [1;31m FAIL! Region ca-central-1 has AWS Config disabled or not configured [0;39m
+      [1;31m FAIL! Region ap-southeast-1 has AWS Config disabled or not configured [0;39m
+      [1;31m FAIL! Region ap-southeast-2 has AWS Config disabled or not configured [0;39m
+      [1;31m FAIL! Region eu-central-1 has AWS Config disabled or not configured [0;39m
+      [1;31m FAIL! Region us-east-1 has AWS Config disabled or not configured [0;39m
+      [1;31m FAIL! Region us-east-2 has AWS Config disabled or not configured [0;39m
+      [1;31m FAIL! Region us-west-1 has AWS Config disabled or not configured [0;39m
+      [1;31m FAIL! Region us-west-2 has AWS Config disabled or not configured [0;39m
+
+[0;34m 2.6 [0;39m [check26] Ensure S3 bucket access logging is enabled on the CloudTrail S3 bucket (Scored)
+      [1;31m FAIL! access logging is not enabled in it-team-cloudon-logs CloudTrail S3 bucket! [0;39m
+
+[0;34m 2.7 [0;39m [check27] Ensure CloudTrail logs are encrypted at rest using KMS CMKs (Scored)
+      [1;31m FAIL! Encryption is not enabled in your CloudTrail trail it-team-cloudon-rnd-trail (KMS key not found)! [0;39m
+
+[0;34m 2.8 [0;39m [check28] Ensure rotation for customer created CMKs is enabled (Scored)
+      [1;33m INFO! eu-north-1: This region doesn't have ANY encryption keys [0;39m
+      [1;33m INFO! ap-south-1: This region doesn't have ANY encryption keys [0;39m
+      [1;33m INFO! eu-west-3: This region doesn't have ANY encryption keys [0;39m
+      [1;33m INFO! eu-west-2: This region doesn't have ANY encryption keys [0;39m
+      [1;33m INFO! eu-west-1: This region doesn't have ANY encryption keys [0;39m
+      [1;33m INFO! ap-northeast-2: This region doesn't have ANY encryption keys [0;39m
+      [1;33m INFO! ap-northeast-1: This region doesn't have ANY encryption keys [0;39m
+      [1;33m INFO! sa-east-1: This region doesn't have ANY encryption keys [0;39m
+      [1;33m INFO! ca-central-1: This region doesn't have ANY encryption keys [0;39m
+      [1;33m INFO! ap-southeast-1: This region doesn't have ANY encryption keys [0;39m
+      [1;33m INFO! ap-southeast-2: This region doesn't have ANY encryption keys [0;39m
+      [1;33m INFO! eu-central-1: This region doesn't have ANY encryption keys [0;39m
+      [1;33m INFO! us-east-1: This region doesn't have CUSTOM encryption keys [0;39m
+      [1;33m INFO! us-east-2: This region doesn't have ANY encryption keys [0;39m
+      [1;31m FAIL! us-west-1: Key 19fee751-8579-4f0d-8f16-258492629055 is not set to rotate! [0;39m
+      [1;31m FAIL! us-west-2: Key 0535296c-dc0a-45c5-a867-0984c33a1639 is not set to rotate! [0;39m
+      [1;31m FAIL! us-west-2: Key c328c231-aca1-413d-8664-2cd4f14a1896 is not set to rotate! [0;39m
+      [1;31m FAIL! us-west-2: Key de1ca217-97d8-4858-9472-d7b7b7904836 is not set to rotate! [0;39m
+
+[0;34m 2.9 [0;39m [check29] Ensure VPC Flow Logging is Enabled in all VPCs (Scored)
+      [1;31m FAIL! No VPCFlowLog has been found in Region eu-north-1 [0;39m
+      [1;31m FAIL! No VPCFlowLog has been found in Region ap-south-1 [0;39m
+      [1;31m FAIL! No VPCFlowLog has been found in Region eu-west-3 [0;39m
+      [1;31m FAIL! No VPCFlowLog has been found in Region eu-west-2 [0;39m
+      [1;31m FAIL! No VPCFlowLog has been found in Region eu-west-1 [0;39m
+      [1;31m FAIL! No VPCFlowLog has been found in Region ap-northeast-2 [0;39m
+      [1;31m FAIL! No VPCFlowLog has been found in Region ap-northeast-1 [0;39m
+      [1;31m FAIL! No VPCFlowLog has been found in Region sa-east-1 [0;39m
+      [1;31m FAIL! No VPCFlowLog has been found in Region ca-central-1 [0;39m
+      [1;31m FAIL! No VPCFlowLog has been found in Region ap-southeast-1 [0;39m
+      [1;31m FAIL! No VPCFlowLog has been found in Region ap-southeast-2 [0;39m
+      [1;31m FAIL! No VPCFlowLog has been found in Region eu-central-1 [0;39m
+      [1;32m PASS![0;39m VPCFlowLog is enabled for LogGroupName: fl-06616456fc8e15fab in Region us-east-1
+      [1;32m PASS![0;39m VPCFlowLog is enabled for LogGroupName: fl-0e93438bd9f8e83f0 in Region us-east-2
+      [1;32m PASS![0;39m VPCFlowLog is enabled for LogGroupName: fl-0886e9cf85fc38b6c in Region us-west-1
+      [1;32m PASS![0;39m VPCFlowLog is enabled for LogGroupName: fl-058dbf020b2242c28 in Region us-west-1
+      [1;32m PASS![0;39m VPCFlowLog is enabled for LogGroupName: fl-0886e9cf85fc38b6c in Region us-west-1
+      [1;32m PASS![0;39m VPCFlowLog is enabled for LogGroupName: fl-058dbf020b2242c28 in Region us-west-1
+      [1;32m PASS![0;39m VPCFlowLog is enabled for LogGroupName: fl-07fe7fb7338998b08 in Region us-west-2
+      [1;32m PASS![0;39m VPCFlowLog is enabled for LogGroupName: fl-0f68d0121726407c6 in Region us-west-2
+      [1;32m PASS![0;39m VPCFlowLog is enabled for LogGroupName: fl-0d323094cf3a53893 in Region us-west-2
+      [1;32m PASS![0;39m VPCFlowLog is enabled for LogGroupName: fl-07fe7fb7338998b08 in Region us-west-2
+      [1;32m PASS![0;39m VPCFlowLog is enabled for LogGroupName: fl-0f68d0121726407c6 in Region us-west-2
+      [1;32m PASS![0;39m VPCFlowLog is enabled for LogGroupName: fl-0d323094cf3a53893 in Region us-west-2
+
+[0;35m 3.0 Monitoring - [group3] ****************************************** [0;39m
+
+[0;34m 3.1 [0;39m [check31] Ensure a log metric filter and alarm exist for unauthorized API calls (Scored)
+      [1;31m FAIL! No CloudWatch group found for CloudTrail events [0;39m
+
+[0;34m 3.2 [0;39m [check32] Ensure a log metric filter and alarm exist for Management Console sign-in without MFA (Scored)
+      [1;31m FAIL! No CloudWatch group found for CloudTrail events [0;39m
+
+[0;34m 3.3 [0;39m [check33] Ensure a log metric filter and alarm exist for usage of root account (Scored)
+      [1;31m FAIL! No CloudWatch group found for CloudTrail events [0;39m
+
+[0;34m 3.4 [0;39m [check34] Ensure a log metric filter and alarm exist for IAM policy changes (Scored)
+      [1;31m FAIL! No CloudWatch group found for CloudTrail events [0;39m
+
+[0;34m 3.5 [0;39m [check35] Ensure a log metric filter and alarm exist for CloudTrail configuration changes (Scored)
+      [1;31m FAIL! No CloudWatch group found for CloudTrail events [0;39m
+
+[0;34m 3.6 [0;39m [check36] Ensure a log metric filter and alarm exist for AWS Management Console authentication failures (Scored)
+      [1;31m FAIL! No CloudWatch group found for CloudTrail events [0;39m
+
+[0;34m 3.7 [0;39m [check37] Ensure a log metric filter and alarm exist for disabling or scheduled deletion of customer created CMKs (Scored)
+      [1;31m FAIL! No CloudWatch group found for CloudTrail events [0;39m
+
+[0;34m 3.8 [0;39m [check38] Ensure a log metric filter and alarm exist for S3 bucket policy changes (Scored)
+      [1;31m FAIL! No CloudWatch group found for CloudTrail events [0;39m
+
+[0;34m 3.9 [0;39m [check39] Ensure a log metric filter and alarm exist for AWS Config configuration changes (Scored)
+      [1;31m FAIL! No CloudWatch group found for CloudTrail events [0;39m
+
+[0;34m 3.10 [0;39m [check310] Ensure a log metric filter and alarm exist for security group changes (Scored)
+      [1;31m FAIL! No CloudWatch group found for CloudTrail events [0;39m
+
+[0;34m 3.11 [0;39m [check311] Ensure a log metric filter and alarm exist for changes to Network Access Control Lists (NACL) (Scored)
+      [1;31m FAIL! No CloudWatch group found for CloudTrail events [0;39m
+
+[0;34m 3.12 [0;39m [check312] Ensure a log metric filter and alarm exist for changes to network gateways (Scored)
+      [1;31m FAIL! No CloudWatch group found for CloudTrail events [0;39m
+
+[0;34m 3.13 [0;39m [check313] Ensure a log metric filter and alarm exist for route table changes (Scored)
+      [1;31m FAIL! No CloudWatch group found for CloudTrail events [0;39m
+
+[0;34m 3.14 [0;39m [check314] Ensure a log metric filter and alarm exist for VPC changes (Scored)
+      [1;31m FAIL! No CloudWatch group found for CloudTrail events [0;39m
+
+[0;35m 4.0 Networking - [group4] ****************************************** [0;39m
+
+[0;34m 4.1 [0;39m [check41] Ensure no security groups allow ingress from 0.0.0.0/0 or ::/0 to port 22 (Scored)
+      [1;32m PASS![0;39m No Security Groups found in eu-north-1 with port 22 TCP open to 0.0.0.0/0
+      [1;32m PASS![0;39m No Security Groups found in ap-south-1 with port 22 TCP open to 0.0.0.0/0
+      [1;32m PASS![0;39m No Security Groups found in eu-west-3 with port 22 TCP open to 0.0.0.0/0
+      [1;32m PASS![0;39m No Security Groups found in eu-west-2 with port 22 TCP open to 0.0.0.0/0
+      [1;32m PASS![0;39m No Security Groups found in eu-west-1 with port 22 TCP open to 0.0.0.0/0
+      [1;32m PASS![0;39m No Security Groups found in ap-northeast-2 with port 22 TCP open to 0.0.0.0/0
+      [1;32m PASS![0;39m No Security Groups found in ap-northeast-1 with port 22 TCP open to 0.0.0.0/0
+      [1;32m PASS![0;39m No Security Groups found in sa-east-1 with port 22 TCP open to 0.0.0.0/0
+      [1;32m PASS![0;39m No Security Groups found in ca-central-1 with port 22 TCP open to 0.0.0.0/0
+      [1;32m PASS![0;39m No Security Groups found in ap-southeast-1 with port 22 TCP open to 0.0.0.0/0
+      [1;32m PASS![0;39m No Security Groups found in ap-southeast-2 with port 22 TCP open to 0.0.0.0/0
+      [1;32m PASS![0;39m No Security Groups found in eu-central-1 with port 22 TCP open to 0.0.0.0/0
+      [1;32m PASS![0;39m No Security Groups found in us-east-1 with port 22 TCP open to 0.0.0.0/0
+      [1;31m FAIL! Found Security Group: sg-02179af2763b95efe open to 0.0.0.0/0 in Region us-east-2 [0;39m
+      [1;31m FAIL! Found Security Group: sg-06d3bbb351af06a56 open to 0.0.0.0/0 in Region us-east-2 [0;39m
+      [1;31m FAIL! Found Security Group: sg-07351da3f910c98ed open to 0.0.0.0/0 in Region us-east-2 [0;39m
+      [1;31m FAIL! Found Security Group: sg-0ba4df7fc0cf6e4ea open to 0.0.0.0/0 in Region us-east-2 [0;39m
+      [1;31m FAIL! Found Security Group: sg-0f07bc38485b0b9b0 open to 0.0.0.0/0 in Region us-east-2 [0;39m
+      [1;31m FAIL! Found Security Group: sg-00101e1dafcd8f40b open to 0.0.0.0/0 in Region us-west-1 [0;39m
+      [1;31m FAIL! Found Security Group: sg-007ee87bbe939973f open to 0.0.0.0/0 in Region us-west-1 [0;39m
+      [1;31m FAIL! Found Security Group: sg-008130f4abf4d3798 open to 0.0.0.0/0 in Region us-west-1 [0;39m
+      [1;31m FAIL! Found Security Group: sg-01226b39a50d4def0 open to 0.0.0.0/0 in Region us-west-1 [0;39m
+      [1;31m FAIL! Found Security Group: sg-016345fb512171213 open to 0.0.0.0/0 in Region us-west-1 [0;39m
+      [1;31m FAIL! Found Security Group: sg-017592ed6c551f38a open to 0.0.0.0/0 in Region us-west-1 [0;39m
+      [1;31m FAIL! Found Security Group: sg-01a5dea3c514a1162 open to 0.0.0.0/0 in Region us-west-1 [0;39m
+      [1;31m FAIL! Found Security Group: sg-01ca22c24e1590282 open to 0.0.0.0/0 in Region us-west-1 [0;39m
+      [1;31m FAIL! Found Security Group: sg-024200c912a1b85f8 open to 0.0.0.0/0 in Region us-west-1 [0;39m
+      [1;31m FAIL! Found Security Group: sg-043cb59a779d3ccf6 open to 0.0.0.0/0 in Region us-west-1 [0;39m
+      [1;31m FAIL! Found Security Group: sg-0479be5ac0cfd0ab6 open to 0.0.0.0/0 in Region us-west-1 [0;39m
+      [1;31m FAIL! Found Security Group: sg-04b73d55d6db1163a open to 0.0.0.0/0 in Region us-west-1 [0;39m
+      [1;31m FAIL! Found Security Group: sg-04e8e76d92694b0db open to 0.0.0.0/0 in Region us-west-1 [0;39m
+      [1;31m FAIL! Found Security Group: sg-055a063592993f88e open to 0.0.0.0/0 in Region us-west-1 [0;39m
+      [1;31m FAIL! Found Security Group: sg-06b3826df61766b5e open to 0.0.0.0/0 in Region us-west-1 [0;39m
+      [1;31m FAIL! Found Security Group: sg-06b83ce4628590470 open to 0.0.0.0/0 in Region us-west-1 [0;39m
+      [1;31m FAIL! Found Security Group: sg-06ba58e2a1bb7e21d open to 0.0.0.0/0 in Region us-west-1 [0;39m
+      [1;31m FAIL! Found Security Group: sg-06bf04f87fc48a50c open to 0.0.0.0/0 in Region us-west-1 [0;39m
+      [1;31m FAIL! Found Security Group: sg-06dcd266eb43faf27 open to 0.0.0.0/0 in Region us-west-1 [0;39m
+      [1;31m FAIL! Found Security Group: sg-06f6ff8d9a8c5a374 open to 0.0.0.0/0 in Region us-west-1 [0;39m
+      [1;31m FAIL! Found Security Group: sg-07e3ec50d0585331e open to 0.0.0.0/0 in Region us-west-1 [0;39m
+      [1;31m FAIL! Found Security Group: sg-08d1dae9a833212fe open to 0.0.0.0/0 in Region us-west-1 [0;39m
+      [1;31m FAIL! Found Security Group: sg-09a02f09583cfcd28 open to 0.0.0.0/0 in Region us-west-1 [0;39m
+      [1;31m FAIL! Found Security Group: sg-0a8442a17f65e5b63 open to 0.0.0.0/0 in Region us-west-1 [0;39m
+      [1;31m FAIL! Found Security Group: sg-0a947abec691e71c9 open to 0.0.0.0/0 in Region us-west-1 [0;39m
+      [1;31m FAIL! Found Security Group: sg-0a9937fc1adf86154 open to 0.0.0.0/0 in Region us-west-1 [0;39m
+      [1;31m FAIL! Found Security Group: sg-0ae76518d1b258d26 open to 0.0.0.0/0 in Region us-west-1 [0;39m
+      [1;31m FAIL! Found Security Group: sg-0b077a30cdc96bf94 open to 0.0.0.0/0 in Region us-west-1 [0;39m
+      [1;31m FAIL! Found Security Group: sg-0baa24ff88c3956f5 open to 0.0.0.0/0 in Region us-west-1 [0;39m
+      [1;31m FAIL! Found Security Group: sg-0c211ecbde1d30f81 open to 0.0.0.0/0 in Region us-west-1 [0;39m
+      [1;31m FAIL! Found Security Group: sg-0c3baec69469b4d18 open to 0.0.0.0/0 in Region us-west-1 [0;39m
+      [1;31m FAIL! Found Security Group: sg-0c5d1710aea53a2d1 open to 0.0.0.0/0 in Region us-west-1 [0;39m
+      [1;31m FAIL! Found Security Group: sg-0cd8ada3e9a101a59 open to 0.0.0.0/0 in Region us-west-1 [0;39m
+      [1;31m FAIL! Found Security Group: sg-0d9515bae2e25901a open to 0.0.0.0/0 in Region us-west-1 [0;39m
+      [1;31m FAIL! Found Security Group: sg-0dac72b191138eec6 open to 0.0.0.0/0 in Region us-west-1 [0;39m
+      [1;31m FAIL! Found Security Group: sg-0dd5b58da0a1140f4 open to 0.0.0.0/0 in Region us-west-1 [0;39m
+      [1;31m FAIL! Found Security Group: sg-0dff899ad228718c0 open to 0.0.0.0/0 in Region us-west-1 [0;39m
+      [1;31m FAIL! Found Security Group: sg-0e260981d1f1b2f7a open to 0.0.0.0/0 in Region us-west-1 [0;39m
+      [1;31m FAIL! Found Security Group: sg-0e4a0ec5aabcdb4d9 open to 0.0.0.0/0 in Region us-west-1 [0;39m
+      [1;31m FAIL! Found Security Group: sg-0eae56d3ae7990c03 open to 0.0.0.0/0 in Region us-west-1 [0;39m
+      [1;31m FAIL! Found Security Group: sg-0ef02aa29a7a88fc4 open to 0.0.0.0/0 in Region us-west-1 [0;39m
+      [1;31m FAIL! Found Security Group: sg-0f275c6c6929f0fdb open to 0.0.0.0/0 in Region us-west-1 [0;39m
+      [1;31m FAIL! Found Security Group: sg-0f4d82536e5618054 open to 0.0.0.0/0 in Region us-west-1 [0;39m
+      [1;31m FAIL! Found Security Group: sg-0f55e595e859043eb open to 0.0.0.0/0 in Region us-west-1 [0;39m
+      [1;31m FAIL! Found Security Group: sg-0fbcfda66b1a896fc open to 0.0.0.0/0 in Region us-west-1 [0;39m
+      [1;31m FAIL! Found Security Group: sg-0fbe0f3130aff1d5b open to 0.0.0.0/0 in Region us-west-1 [0;39m
+      [1;31m FAIL! Found Security Group: sg-0ffa2c6956fc1076a open to 0.0.0.0/0 in Region us-west-1 [0;39m
+      [1;31m FAIL! Found Security Group: sg-0032051f2d012eb06 open to 0.0.0.0/0 in Region us-west-2 [0;39m
+      [1;31m FAIL! Found Security Group: sg-0e8ade26af9c359d3 open to 0.0.0.0/0 in Region us-west-2 [0;39m
+
+[0;34m 4.2 [0;39m [check42] Ensure no security groups allow ingress from 0.0.0.0/0 or ::/0 to port 3389 (Scored)
+      [1;32m PASS![0;39m No Security Groups found in eu-north-1 with port 3389 TCP open to 0.0.0.0/0
+      [1;32m PASS![0;39m No Security Groups found in ap-south-1 with port 3389 TCP open to 0.0.0.0/0
+      [1;32m PASS![0;39m No Security Groups found in eu-west-3 with port 3389 TCP open to 0.0.0.0/0
+      [1;32m PASS![0;39m No Security Groups found in eu-west-2 with port 3389 TCP open to 0.0.0.0/0
+      [1;32m PASS![0;39m No Security Groups found in eu-west-1 with port 3389 TCP open to 0.0.0.0/0
+      [1;32m PASS![0;39m No Security Groups found in ap-northeast-2 with port 3389 TCP open to 0.0.0.0/0
+      [1;32m PASS![0;39m No Security Groups found in ap-northeast-1 with port 3389 TCP open to 0.0.0.0/0
+      [1;32m PASS![0;39m No Security Groups found in sa-east-1 with port 3389 TCP open to 0.0.0.0/0
+      [1;32m PASS![0;39m No Security Groups found in ca-central-1 with port 3389 TCP open to 0.0.0.0/0
+      [1;32m PASS![0;39m No Security Groups found in ap-southeast-1 with port 3389 TCP open to 0.0.0.0/0
+      [1;32m PASS![0;39m No Security Groups found in ap-southeast-2 with port 3389 TCP open to 0.0.0.0/0
+      [1;32m PASS![0;39m No Security Groups found in eu-central-1 with port 3389 TCP open to 0.0.0.0/0
+      [1;32m PASS![0;39m No Security Groups found in us-east-1 with port 3389 TCP open to 0.0.0.0/0
+      [1;32m PASS![0;39m No Security Groups found in us-east-2 with port 3389 TCP open to 0.0.0.0/0
+      [1;31m FAIL! Found Security Group: sg-003dceb0e7cad5d10 open to 0.0.0.0/0 in Region us-west-1 [0;39m
+      [1;31m FAIL! Found Security Group: sg-0155ec244ac396fb1 open to 0.0.0.0/0 in Region us-west-1 [0;39m
+      [1;31m FAIL! Found Security Group: sg-073fab4c3ee3a1f43 open to 0.0.0.0/0 in Region us-west-1 [0;39m
+      [1;31m FAIL! Found Security Group: sg-0751e96702d640cf6 open to 0.0.0.0/0 in Region us-west-1 [0;39m
+      [1;31m FAIL! Found Security Group: sg-08dba9efb2e41318f open to 0.0.0.0/0 in Region us-west-1 [0;39m
+      [1;31m FAIL! Found Security Group: sg-0e7668b22c7f3298b open to 0.0.0.0/0 in Region us-west-1 [0;39m
+      [1;32m PASS![0;39m No Security Groups found in us-west-2 with port 3389 TCP open to 0.0.0.0/0
+
+[0;34m 4.3 [0;39m [check43] Ensure the default security group of every VPC restricts all traffic (Scored)
+      [1;31m FAIL! Default Security Groups (sg-226daf4b) found that allow 0.0.0.0 IN or OUT traffic in Region eu-north-1 [0;39m
+      [1;31m FAIL! Default Security Groups (sg-935d8bf9) found that allow 0.0.0.0 IN or OUT traffic in Region ap-south-1 [0;39m
+      [1;31m FAIL! Default Security Groups (sg-2f6bc447) found that allow 0.0.0.0 IN or OUT traffic in Region eu-west-3 [0;39m
+      [1;31m FAIL! Default Security Groups (sg-9cf6acf7) found that allow 0.0.0.0 IN or OUT traffic in Region eu-west-2 [0;39m
+      [1;31m FAIL! Default Security Groups (sg-1e258f62) found that allow 0.0.0.0 IN or OUT traffic in Region eu-west-1 [0;39m
+      [1;31m FAIL! Default Security Groups (sg-da2500b0) found that allow 0.0.0.0 IN or OUT traffic in Region ap-northeast-2 [0;39m
+      [1;31m FAIL! Default Security Groups (sg-6705331f) found that allow 0.0.0.0 IN or OUT traffic in Region ap-northeast-1 [0;39m
+      [1;31m FAIL! Default Security Groups (sg-24944b5d) found that allow 0.0.0.0 IN or OUT traffic in Region sa-east-1 [0;39m
+      [1;31m FAIL! Default Security Groups (sg-42186029) found that allow 0.0.0.0 IN or OUT traffic in Region ca-central-1 [0;39m
+      [1;31m FAIL! Default Security Groups (sg-dc9942a4) found that allow 0.0.0.0 IN or OUT traffic in Region ap-southeast-1 [0;39m
+      [1;31m FAIL! Default Security Groups (sg-7748e10f) found that allow 0.0.0.0 IN or OUT traffic in Region ap-southeast-2 [0;39m
+      [1;31m FAIL! Default Security Groups (sg-7d0fb311) found that allow 0.0.0.0 IN or OUT traffic in Region eu-central-1 [0;39m
+      [1;31m FAIL! Default Security Groups (sg-43d71409) found that allow 0.0.0.0 IN or OUT traffic in Region us-east-1 [0;39m
