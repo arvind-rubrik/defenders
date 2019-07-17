@@ -34,13 +34,13 @@ DROP TABLE IF EXISTS `compliance_run_result`;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `compliance_run_result` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `timestamp` datetime NOT NULL,
-  `rule_id` int(10) unsigned NOT NULL,
+  `timestamp` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `rule_id` varchar(10) COLLATE utf8_bin NOT NULL,
   `provider` varchar(31) COLLATE utf8_bin NOT NULL,
   `region` varchar(31) COLLATE utf8_bin NOT NULL,
-  `entity` varchar(31) COLLATE utf8_bin NOT NULL,
+  `entity` varchar(255) COLLATE utf8_bin NOT NULL,
   `result` varchar(31) COLLATE utf8_bin NOT NULL,
-  `message` varchar(31) COLLATE utf8_bin NOT NULL,
+  `message` varchar(255) COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`id`),
   KEY `rule_id` (`rule_id`),
   CONSTRAINT `compliance_run_result_ibfk_1` FOREIGN KEY (`rule_id`) REFERENCES `rules` (`id`)
@@ -64,7 +64,7 @@ DROP TABLE IF EXISTS `rules`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `rules` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` varchar(10) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `name` varchar(31) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
   `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
   `severity` varchar(31) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
@@ -185,7 +185,7 @@ CREATE TABLE `db` (
 
 LOCK TABLES `db` WRITE;
 /*!40000 ALTER TABLE `db` DISABLE KEYS */;
-INSERT INTO `db` VALUES ('localhost','performance_schema','mysql.session','Y','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N'),('localhost','sys','mysql.sys','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','Y');
+INSERT INTO `db` VALUES ('%','compliance','pankaj','Y','Y','Y','Y','Y','Y','N','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y'),('localhost','performance_schema','mysql.session','Y','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N'),('localhost','sys','mysql.sys','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','Y');
 /*!40000 ALTER TABLE `db` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -990,4 +990,4 @@ CREATE TABLE IF NOT EXISTS `slow_log` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-07-17 19:14:41
+-- Dump completed on 2019-07-17 20:19:08
