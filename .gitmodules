@@ -1,0 +1,3 @@
+[submodule "prowler"]
+	path = prowler
+	url = https://github.com/toniblyx/prowler.git
