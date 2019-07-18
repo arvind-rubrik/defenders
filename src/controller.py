@@ -1,24 +1,16 @@
-#!/usr/bin/python
-# -*- coding: utf-8 -*-
-from flask import Flask ,flash, redirect, url_for, request, render_template , abort , session , json
+from src import app, db
+from flask import Flask ,flash, redirect, url_for, request, render_template, abort , session , json, jsonify
 from flask_sqlalchemy import SQLAlchemy
 import os,subprocess,MySQLdb
 from werkzeug import secure_filename
-
-app = Flask(__name__)
-app.secret_key='somerandstring'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-#SQL_URI = "mysql://root:"+DATABASE_PASSWORD+"@localhost/"+DATABASE_NAME
-#app.config['SQLALCHEMY_DATABASE_URI'] = SQL_URI
-db = SQLAlchemy(app)
-
+from src.models import Rules, ComplianceRuleResults
 # SQL CONSTANT
 #DATABASE_NAME = "trial"
 #DATABASE_PASSWORD = "password"
 from models import *
 
 # CONSTANTS
-ADMIN = "admin"
+ADMIN = "admi"
 
 # HTML FILES 
 LOGIN_VIEW = "homepage.html"
@@ -108,6 +100,19 @@ def add_rule():
 	if not session.get('logged'):
 		return redirect(url_for('login'))
 	return render_template(ADD_RULE_VIEW)
+
+
+@app.route('/rules')
+def rules():
+  rules = Rules.query.all()
+  r = [rule.toString() for rule in rules]
+  return jsonify(meta = "success", rules = r)
+
+@app.route('/rule_results')
+def rule_results():
+  results = ComplianceRuleResults.query.all()
+  r = [result.toString() for result in results]
+  return jsonify(meta = "success", result = r)
 
 if __name__ == '__main__':
 #db.create_all()
