@@ -69,14 +69,13 @@ class rule(object):
             return
         sql = "INSERT INTO rules (id, name, description, severity, rgroup, entity_type, provider) values (%s, %s, %s, %s, %s, %s, %s)"
         val = (self.id, self.name, self.descritpion, self.severity, self.group, self.entity_type, self.provider)
-        print(sql, val)
         db.cursor().execute(sql, val)
         db.commit()
         #print(sql, val)
     
 
 def insert_rule_result(db, result):
-    sql = "INSERT INTO compliance_run_result (rule_id, result, message, provider, region, entity) values (%s, %s, %s, %s, %s, %s)"
+    sql = "INSERT INTO compliance_rule_results (rule_id, result, message, provider, region, entity) values (%s, %s, %s, %s, %s, %s)"
     val = (result.rule_id, result.result, result.message, result.provider, result.region, result.entity)
     db.cursor().execute(sql, val)
     db.commit()
