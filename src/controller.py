@@ -73,7 +73,7 @@ def menu():
 					dic[key].append([r['name'], r['severity'], r['provider']])
 				else:
 					dic[key]= [[r['name'], r['severity'], r['provider']]]
-		return render_template(MENU_VIEW, groupIds=group_ids, mylist=dic[request_group_id])
+		return render_template(MENU_VIEW, groupIds=group_ids, mylist=dic[request_group_id], cur_group_id=request_group_id)
 	else:
 		return render_template(MENU_VIEW, groupIds=group_ids)	
 		
@@ -136,6 +136,29 @@ def add_rule():
 	return render_template(ADD_RULE_VIEW)
 
 def get_rules():
+	rules = Rules.query.all()
+	r = [rule.toString() for rule in rules]
+	
+	groups = {}
+	for entry in r:
+		name = entry['name']
+		for group in entry['groups']:
+			grp = group.strip()
+			if grp not in groups:
+				print(grp)
+				groups[grp] = {'groupId' : grp, 'rules' : {}}
+				
+			if name not in groups[grp]['rules']:
+				groups[grp]['rules'][name] = {'severity': entry['severity'], 'provider': entry['provider'], 'name': name}
+				
+				
+	for g in groups:
+		groups[g]['rules'] = list(groups[g]['rules'].values())
+	final_rules = list(groups.values())
+	return final_rules
+	
+@app.route('/rules')
+def rules():
   rules = Rules.query.all()
   r = [rule.toString() for rule in rules]
 
@@ -151,16 +174,13 @@ def get_rules():
   		if name not in groups[grp]['rules']:
   			groups[grp]['rules'][name] = {'severity': entry['severity'], 'provider': entry['provider'], 'name': name}
 
+
   for g in groups:
   	groups[g]['rules'] = list(groups[g]['rules'].values())
 
-	final_rules = list(groups.values())
-	return final_rules
+  final_rules = list(groups.values())
 
-@app.route('/rules')
-def rules():
-	frules = get_rules()
-	return jsonify(frules)
+  return jsonify(final_rules)	
 
 def get_run_results():
   results = ComplianceRuleResults.query.all()
