@@ -58,7 +58,7 @@ def menu():
 	if not session.get('logged'):
 		return redirect(url_for('login'))
 	dic = {}
-	with open('menu.json') as json_file:
+	with open('src/menu.json') as json_file:
 		data = json.load(json_file)
 		for p in data:
 			for r in p['rules']:
