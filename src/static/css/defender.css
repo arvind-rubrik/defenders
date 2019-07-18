@@ -18,11 +18,12 @@
 
     .panel-title {
         font-size: 14px;
+        background:#E9ECEF;
     }
 
     .panel-title > a {
         display: block;
-        padding: 8px;
+        padding: 10px;
         text-decoration: none;
     }
 
