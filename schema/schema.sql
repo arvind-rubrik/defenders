@@ -35,7 +35,7 @@ DROP TABLE IF EXISTS `compliance_run_result`;
 CREATE TABLE `compliance_run_result` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `timestamp` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `rule_id` varchar(10) COLLATE utf8_bin NOT NULL,
+  `rule_id` int(11) NOT NULL,
   `provider` varchar(31) COLLATE utf8_bin NOT NULL,
   `region` varchar(31) COLLATE utf8_bin NOT NULL,
   `entity` varchar(255) COLLATE utf8_bin NOT NULL,
@@ -64,8 +64,8 @@ DROP TABLE IF EXISTS `rules`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `rules` (
-  `id` varchar(10) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
-  `name` varchar(31) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `id` int(11) NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
   `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
   `severity` varchar(31) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `group` varchar(31) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
