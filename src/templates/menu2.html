@@ -197,7 +197,7 @@
                                      data-parent="#accordion"
                                      href="#collapseOne{{loop.index}}" aria-expanded="true" aria-controls="collapseOne">
                         <i class="more-less fa fa-plus"></i>
-                        {{item.rule.name}} #1
+                        {{item.group_name}} #1
                     </a>
                 </h4>
             </div>
@@ -205,7 +205,7 @@
                                                 role="tabpanel"
                                                 aria-labelledby="headingOne{{loop.index}}">
                 <div class="panel-body">
-                  {{item.message}}
+                  {{item.rules}}
                 </div>
             </div>
         </div>
