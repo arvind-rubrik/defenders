@@ -207,6 +207,9 @@ def rules():
 
 def get_run_results(req_groups, req_regions, req_providers):
   req_groups = [i.lower() for i in req_groups]
+  for i in range(len(req_groups)):
+      if req_groups[i]=='iam':
+          req_groups[i]='identity and access management'
   req_regions = [i.lower() for i in req_regions]
   req_providers = [i.lower() for i in req_providers]
 
@@ -225,7 +228,8 @@ def get_run_results(req_groups, req_regions, req_providers):
         grp = "Extra"
     else:
         grp = intersect[0]
-    if (grp.lower() in req_groups or ALL in req_groups) and (entry['region'].lower() in req_regions or ALL in req_regions) and (entry['rule']['provider'].lower() in req_providers or ALL in req_providers):
+    intersect2 = list(set([j.lower() for j in entry['rule']['groups']]) & set(req_groups))
+    if (len(intersect2)>0 or ALL in req_groups) and (entry['region'].lower() in req_regions or ALL in req_regions) and (entry['rule']['provider'].lower() in req_providers or ALL in req_providers):
         rule = entry['rule']['name']
         desc = entry['rule']['description']
         if grp not in groups:
