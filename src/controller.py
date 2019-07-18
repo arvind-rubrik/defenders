@@ -228,6 +228,7 @@ def get_run_results(req_groups, req_regions, req_providers):
             groups[grp] = {'group_name': grp, 'rules' : {}}
 
         if rule not in groups[grp]['rules']:
+            rule_id = 0
             if "[check" in rule:
                 rule_id = int(rule.split("]")[0].split("[check")[1])
             elif "[extra" in rule:
