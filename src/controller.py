@@ -79,8 +79,12 @@ def menu2():
 	provider = request.args.get('provider')
         region = request.args.get('region')
         groups = request.args.get('groups')
+        #results = ComplianceRuleResults.query.all()
+        #r = [result.toString() for result in results]
+        final_result = get_run_results()
+        print(final_result)
         return render_template(MENU2_VIEW, provider=provider, region=region,
-                groups = groups)	
+                groups = groups, results=final_result['results'])	
 # RUN TEST PAGE
 @app.route('/run',methods=['GET','POST'])
 def run():
@@ -148,8 +152,7 @@ def rules():
 
   return jsonify(final_rules)
 
-@app.route('/rule_results')
-def rule_results():
+def get_run_results():
   results = ComplianceRuleResults.query.all()
   r = [result.toString() for result in results]
 
@@ -176,7 +179,14 @@ def rule_results():
   for g in groups:
       groups[g]['rules'] = list(groups[g]['rules'].values())
   final_result = {'results': list(groups.values())}
+  return final_result
+
+
+
+@app.route('/rule_results')
+def rule_results():
 #   print(json.dumps(final_result))
+  final_result = get_run_results()
   return jsonify(meta = "success", result = final_result)
 
 if __name__ == '__main__':
