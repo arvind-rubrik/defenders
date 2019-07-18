@@ -65,6 +65,8 @@ def menu():
 		return redirect(url_for('login'))
 	data = get_rules()
 	for p in data:
+		if (p['groupId'] == "Look for keys secrets or passwords around resources"):
+			p['groupId'] = "Publically exposed credentials" 
 		p['groupId'] = p['groupId'].replace(" ", "-")
 		
 	rules = Rules.query.all()
