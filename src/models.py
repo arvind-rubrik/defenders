@@ -57,6 +57,6 @@ class ComplianceRuleResults(db.Model):
   def toString(self):
       return ({'name':self.ruleId, 'region':self.region,
           'message' : self.message, 'provider':self.provider, 'rule':
-          self.rule.toString()})
+          self.rule.toString(), 'result': self.result})
 
 

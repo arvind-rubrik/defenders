@@ -15,6 +15,7 @@
 
 	<!-- Custom fonts for this template-->
   <link href="{{url_for('static', filename='vendor/fontawesome-free/css/all.min.css')}}"  rel="stylesheet" type="text/css">
+  <link href="{{url_for('static', filename='css/defender.css')}}"  rel="stylesheet" type="text/css">
 
   <!-- Page level plugin CSS-->
   <link href="{{url_for('static', filename='vendor/datatables/dataTables.bootstrap4.css')}}" rel="stylesheet">
@@ -22,7 +23,13 @@
   <!-- Custom styles for this template-->
   <link href="{{url_for('static', filename='css/sb-admin.css')}}" rel="stylesheet">
   
+<style>
+.rg1 {
+  text-transform: uppercase !important;
+  font-weight: bold !important;
+}
 
+</style>
 </head>
 
 <body id="page-top">
@@ -38,16 +45,11 @@
     <!-- Navbar Search -->
     <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
       <div class="input-group">
-        <!-- <input type="text" class="form-control" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2"> -->
+        <input type="text" class="form-control" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
         <div class="input-group-append">
-          <!-- <a class="navbar-brand mr-1" href="index.html">rubrik-it@eng-cloudon</a> -->
-          <a class="nav-link dropdaws dashboard using bootstrapaws dashboard using bootstrapown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          
-          <span class="badge badge-secondary">rubrik-it@eng-cloudon</span>
-          </a>
-          <!-- <button class="btn btn-primary" type="button">
+          <button class="btn btn-primary" type="button">
             <i class="fas fa-search"></i>
-          </button> -->
+          </button>
         </div>
       </div>
     </form>
@@ -100,7 +102,7 @@
       <li class="nav-item active">
         <a class="nav-link" href="index.html">
           <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Compliance Groups</span>
+          <span>Dashboard</span>
         </a>
       </li>
       <!--<li class="nav-item dropdown">
@@ -124,13 +126,29 @@
           <i class="fas fa-fw fa-chart-area"></i>
           <span>Charts</span></a>
       </li>-->
-			{% for x in groupIds %}
-			<li class="nav-item">
-				<a class="nav-link" href={{ "/menu"+"?"+"groupId=" + x }}>
+      <li class="nav-item">
+        <a class="nav-link" href="">
           <i class="fas fa-fw fa-table"></i>
-          <span>{% print x %}</span></a>
+          <span>Network</span></a>
       </li>
-			{% endfor %}
+      <li class="nav-item">
+        <a class="nav-link" href="">
+          <i class="fas fa-fw fa-table"></i>
+          <span>Security</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="">
+          <i class="fas fa-fw fa-table"></i>
+          <span>IAM</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="">
+          <i class="fas fa-fw fa-table"></i>
+          <span>Monitoring</span></a>
+      </li>
+
+
+
     </ul>
 
     <div id="content-wrapper">
@@ -158,39 +176,76 @@
         </div>-->
 
 			<!-- Breadcrumbs-->
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item active">Overview</li>
-        </ol>
-
-        <!-- DataTables Example -->
-        <div class="card mb-3">
-          <div class="card-header">
-            <i class="fas fa-table"></i> Group: <strong>group-0</strong></div>
-          <div class="card-body">
-            <div class="table-responsive">
-              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                <thead>
-                  <tr>
-                    <th>Rule Description</th>
-										<th>Severity</th>
-										<th>Provider</th>
-                  </tr>
-                </thead>
-                 <tbody>
-									{% for i in mylist %}
-									<tr>
-                    <td>{% print i[0] %}</td>
-                    <td>{% print i[1] %}</td>
-                    <td>{% print i[2] %}</td>
-                  </tr>
-                   {% endfor %}
-                  </tbody>
-              </table>
-            </div>
-          </div>
-          <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+        <div class="breadcrumb">
+          <div class="breadcrumb-item active">Showing Results for <span
+              class="rg1"> {{ provider }} </span>
+            in Region = <span class="rg1">{{ region }} </span>for Rule-sets in <span
+              class="rg1">{{
+              groups }}</span></div>
         </div>
 
+
+        <div class="container demo">
+
+
+    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+{% for item in results %}
+  {% set outer_loop = loop %}
+  <div>
+        <h5>{{item.group_name}}</h5>
+        {% for rule in item.rules %}
+          <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headingOne{{outer_loop.index}}_{{loop.index}}">
+                  <h4 class="panel-title">
+                      <a role="button" data-toggle="collapse"
+                                       data-parent="#accordion"
+                                       href="#collapseOne{{outer_loop.index}}_{{loop.index}}" aria-expanded="true" aria-controls="collapseOne">
+                          <i class="more-less fa fa-plus"></i>
+                          <div class="row">
+                            <div class="col-sm-8">{{rule.name}} </div>
+                            <div class="col-sm-2">
+                              {% if rule.stats.pass > 0  %}
+                                <span class="text-success">Passed {{rule.stats.pass}}   </span>
+                              {% endif %}
+                            </div>
+                            <div class="col-sm-2">
+                              {% if rule.stats.fail > 0  %}
+                                <span class="text-danger">Failed {{rule.stats.fail}}</span>
+                              {% endif %}
+                            </div>
+                        </div>
+                      </a>
+                  </h4>
+              </div>
+              <div id="collapseOne{{outer_loop.index}}_{{loop.index}}" class="panel-collapse collapse"
+                                                  role="tabpanel"
+                                                  aria-labelledby="headingOne{{outer_loop.index}}_{{loop.index}}">
+                  <div class="panel-body">
+                     <div class="row" style="padding-left:20px;">
+                      {% for message in rule.messages %}
+                       <div class="col-md-12 col-md-offset-2">
+                        {% if message.status == "PASS"  %}
+                         <span>
+                        {% else %}
+                        <span class="text-danger">
+                        {% endif %}
+                        {{message.message}}
+                      </span>
+                      </div>
+                       {% endfor %}
+                     </div>
+                  </div>
+              </div>
+          </div>
+        {% endfor %}
+    </div>
+{% endfor %}
+       
+
+    </div><!-- panel-group -->
+
+
+</div><!-- container -->
       </div>
       <!-- /.container-fluid -->
 
@@ -227,7 +282,7 @@
         <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="logout">Logout</a>
+          <a class="btn btn-primary" href="login.html">Logout</a>
         </div>
       </div>
     </div>
@@ -241,17 +296,12 @@
   <script src="{{ url_for('static', filename='vendor/jquery-easing/jquery.easing.min.js')}}"></script>
 
 
-  <!-- Page level plugin JavaScript-->
-  <script src="{{ url_for('static', filename='vendor/chart.js/Chart.min.js')}}"></script>
-  <script src= "{{ url_for('static', filename='vendor/datatables/jquery.dataTables.js')}}></script>
-  <script src= "{{ url_for('static', filename='vendor/datatables/dataTables.bootstrap4.js')}}"></script>
 
   <!-- Custom scripts for all pages-->
   <script src="{{ url_for('static', filename='js/sb-admin.min.js')}}"></script>
 
   <!-- Demo scripts for this page-->
-  <script src="{{ url_for('static', filename='js/demo/datatables-demo.js')}}"></script>
-  <script src="{{ url_for('static', filename='js/demo/chart-area-demo.js')}}"></script>
+  <script src="{{ url_for('static', filename='js/defender.js')}}"></script>
 
 
 
