@@ -15,6 +15,7 @@ ADMIN = "admin"
 # HTML FILES 
 LOGIN_VIEW = "homepage.html"
 MENU_VIEW = "menu.html"
+MENU2_VIEW = "menu2.html"
 RUN_VIEW = ""
 ADD_RULE_VIEW = ""
 
@@ -58,6 +59,16 @@ def menu():
 		return redirect(url_for('login'))
 	return render_template(MENU_VIEW)	
 
+# MENU PAGE
+@app.route('/menu2',methods=['GET','POST'])
+def menu2():
+	if not session.get('logged'):
+		return redirect(url_for('login'))
+	provider = request.args.get('provider')
+        region = request.args.get('region')
+        groups = request.args.get('groups')
+        return render_template(MENU2_VIEW, provider=provider, region=region,
+                groups = groups)	
 # RUN TEST PAGE
 @app.route('/run',methods=['GET','POST'])
 def run():
