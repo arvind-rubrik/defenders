@@ -129,7 +129,24 @@ def add_rule():
 def rules():
   rules = Rules.query.all()
   r = [rule.toString() for rule in rules]
-  return jsonify(meta = "success", rules = r)
+
+  groups = {}
+  for entry in r:
+  	name = entry['name']
+  	for grp in entry['groups']:
+  		if grp not in groups:
+  			groups[grp] = {'groupId' : grp, 'rules' : {}}
+
+  		if name not in groups[grp]['rules']:
+  			groups[grp]['rules'][name] = {'severity': entry['severity'], 'provider': entry['provider'], 'name': name}
+
+
+  for g in groups:
+  	groups[g]['rules'] = list(groups[g]['rules'].values())
+
+  final_rules = list(groups.values())
+
+  return jsonify(final_rules)
 
 @app.route('/rule_results')
 def rule_results():
