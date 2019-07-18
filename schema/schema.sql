@@ -34,17 +34,17 @@ DROP TABLE IF EXISTS `compliance_run_result`;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `compliance_run_result` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `timestamp` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `timestamp` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `rule_id` int(11) NOT NULL,
-  `provider` varchar(31) COLLATE utf8_bin NOT NULL,
-  `region` varchar(31) COLLATE utf8_bin NOT NULL,
-  `entity` varchar(255) COLLATE utf8_bin NOT NULL,
-  `result` varchar(31) COLLATE utf8_bin NOT NULL,
-  `message` varchar(255) COLLATE utf8_bin NOT NULL,
+  `provider` varchar(31) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `region` varchar(31) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `entity` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `result` varchar(31) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `message` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`id`),
   KEY `rule_id` (`rule_id`),
   CONSTRAINT `compliance_run_result_ibfk_1` FOREIGN KEY (`rule_id`) REFERENCES `rules` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -53,6 +53,7 @@ CREATE TABLE `compliance_run_result` (
 
 LOCK TABLES `compliance_run_result` WRITE;
 /*!40000 ALTER TABLE `compliance_run_result` DISABLE KEYS */;
+INSERT INTO `compliance_run_result` VALUES (33,'2019-07-18 08:36:40',1,'AWS','us-east-1','DUMMY','FAIL','User anant.mahajan has Password enabled but MFA disabled'),(34,'2019-07-18 08:36:40',1,'AWS','us-east-1','DUMMY','FAIL','User sakshi.kathuria has Password enabled but MFA disabled'),(35,'2019-07-18 08:36:40',2,'AWS','us-east-1','DUMMY','FAIL','User \"anandh.ravindran\" has not logged in during the last 90 days '),(36,'2019-07-18 08:36:40',2,'AWS','us-east-1','DUMMY','PASS','User \"anant.mahajan\" found with credentials used in the last 90 days'),(37,'2019-07-18 08:36:40',2,'AWS','us-east-1','DUMMY','PASS','User \"arijit.banerjee\" found with credentials used in the last 90 days'),(38,'2019-07-18 08:36:40',2,'AWS','us-east-1','DUMMY','PASS','User \"arvind.batra\" found with credentials used in the last 90 days'),(39,'2019-07-18 08:36:40',2,'AWS','us-east-1','DUMMY','FAIL','User \"ben.southward\" has not logged in during the last 90 days ');
 /*!40000 ALTER TABLE `compliance_run_result` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -81,6 +82,7 @@ CREATE TABLE `rules` (
 
 LOCK TABLES `rules` WRITE;
 /*!40000 ALTER TABLE `rules` DISABLE KEYS */;
+INSERT INTO `rules` VALUES (0,'check11',' Avoid the use of the root account (Scored)','Level 1','Identity and Access Management,CIS Level 1,CIS Level 2','DUMMY_TYPE','AWS'),(1,'check12',' Ensure multi-factor authentication (MFA) is enabled for all IAM users that have a console password (Scored)','Level 1','Identity and Access Management,CIS Level 1,GDPR Readiness,HIPAA Compliance,CIS Level 2','DUMMY_TYPE','AWS'),(2,'check13',' Ensure credentials unused for 90 days or greater are disabled (Scored)','Level 1','Identity and Access Management,CIS Level 1,CIS Level 2','DUMMY_TYPE','AWS');
 /*!40000 ALTER TABLE `rules` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -100,11 +102,11 @@ DROP TABLE IF EXISTS `columns_priv`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `columns_priv` (
-  `Host` char(60) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `Db` char(64) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `User` char(32) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `Table_name` char(64) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `Column_name` char(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `Host` char(60) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
+  `Db` char(64) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
+  `User` char(32) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
+  `Table_name` char(64) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
+  `Column_name` char(64) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
   `Timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `Column_priv` set('Select','Insert','Update','References') CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
   PRIMARY KEY (`Host`,`Db`,`User`,`Table_name`,`Column_name`)
@@ -152,9 +154,9 @@ DROP TABLE IF EXISTS `db`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `db` (
-  `Host` char(60) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `Db` char(64) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `User` char(32) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `Host` char(60) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
+  `Db` char(64) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
+  `User` char(32) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
   `Select_priv` enum('N','Y') CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'N',
   `Insert_priv` enum('N','Y') CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'N',
   `Update_priv` enum('N','Y') CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'N',
@@ -197,10 +199,10 @@ DROP TABLE IF EXISTS `default_roles`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `default_roles` (
-  `HOST` char(60) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `USER` char(32) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `DEFAULT_ROLE_HOST` char(60) COLLATE utf8_bin NOT NULL DEFAULT '%',
-  `DEFAULT_ROLE_USER` char(32) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `HOST` char(60) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
+  `USER` char(32) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
+  `DEFAULT_ROLE_HOST` char(60) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '%',
+  `DEFAULT_ROLE_USER` char(32) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
   PRIMARY KEY (`HOST`,`USER`,`DEFAULT_ROLE_HOST`,`DEFAULT_ROLE_USER`)
 ) /*!50100 TABLESPACE `mysql` */ ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin STATS_PERSISTENT=0 COMMENT='Default roles';
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -251,9 +253,9 @@ DROP TABLE IF EXISTS `func`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `func` (
-  `name` char(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `name` char(64) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
   `ret` tinyint(1) NOT NULL DEFAULT '0',
-  `dl` char(128) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `dl` char(128) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
   `type` enum('function','aggregate') CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   PRIMARY KEY (`name`)
 ) /*!50100 TABLESPACE `mysql` */ ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin STATS_PERSISTENT=0 COMMENT='User defined functions';
@@ -276,8 +278,8 @@ DROP TABLE IF EXISTS `global_grants`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `global_grants` (
-  `USER` char(32) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `HOST` char(60) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `USER` char(32) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
+  `HOST` char(60) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
   `PRIV` char(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
   `WITH_GRANT_OPTION` enum('N','Y') CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'N',
   PRIMARY KEY (`USER`,`HOST`,`PRIV`)
@@ -418,7 +420,7 @@ UNLOCK TABLES;
 --
 
 /*!40000 ALTER TABLE `innodb_index_stats` DISABLE KEYS */;
-INSERT  IGNORE INTO `innodb_index_stats` VALUES ('compliance','compliance_run_result','PRIMARY','2019-07-17 18:24:37','n_diff_pfx01',0,1,'id'),('compliance','compliance_run_result','PRIMARY','2019-07-17 18:24:37','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('compliance','compliance_run_result','PRIMARY','2019-07-17 18:24:37','size',1,NULL,'Number of pages in the index'),('compliance','compliance_run_result','rule_id','2019-07-17 18:24:37','n_diff_pfx01',0,1,'rule_id'),('compliance','compliance_run_result','rule_id','2019-07-17 18:24:37','n_diff_pfx02',0,1,'rule_id,id'),('compliance','compliance_run_result','rule_id','2019-07-17 18:24:37','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('compliance','compliance_run_result','rule_id','2019-07-17 18:24:37','size',1,NULL,'Number of pages in the index'),('compliance','rules','PRIMARY','2019-07-17 18:22:05','n_diff_pfx01',0,1,'id'),('compliance','rules','PRIMARY','2019-07-17 18:22:05','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('compliance','rules','PRIMARY','2019-07-17 18:22:05','size',1,NULL,'Number of pages in the index'),('mysql','component','PRIMARY','2019-07-17 17:49:34','n_diff_pfx01',0,1,'component_id'),('mysql','component','PRIMARY','2019-07-17 17:49:34','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('mysql','component','PRIMARY','2019-07-17 17:49:34','size',1,NULL,'Number of pages in the index'),('mysql','gtid_executed','PRIMARY','2019-07-17 17:49:34','n_diff_pfx01',0,1,'source_uuid'),('mysql','gtid_executed','PRIMARY','2019-07-17 17:49:34','n_diff_pfx02',0,1,'source_uuid,interval_start'),('mysql','gtid_executed','PRIMARY','2019-07-17 17:49:34','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('mysql','gtid_executed','PRIMARY','2019-07-17 17:49:34','size',1,NULL,'Number of pages in the index'),('sys','sys_config','PRIMARY','2019-07-17 17:49:35','n_diff_pfx01',6,1,'variable'),('sys','sys_config','PRIMARY','2019-07-17 17:49:35','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('sys','sys_config','PRIMARY','2019-07-17 17:49:35','size',1,NULL,'Number of pages in the index');
+INSERT  IGNORE INTO `innodb_index_stats` VALUES ('compliance','compliance_run_result','PRIMARY','2019-07-18 07:21:45','n_diff_pfx01',0,1,'id'),('compliance','compliance_run_result','PRIMARY','2019-07-18 07:21:45','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('compliance','compliance_run_result','PRIMARY','2019-07-18 07:21:45','size',1,NULL,'Number of pages in the index'),('compliance','compliance_run_result','rule_id','2019-07-18 07:21:45','n_diff_pfx01',0,1,'rule_id'),('compliance','compliance_run_result','rule_id','2019-07-18 07:21:45','n_diff_pfx02',0,1,'rule_id,id'),('compliance','compliance_run_result','rule_id','2019-07-18 07:21:45','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('compliance','compliance_run_result','rule_id','2019-07-18 07:21:45','size',1,NULL,'Number of pages in the index'),('compliance','rules','PRIMARY','2019-07-18 07:21:45','n_diff_pfx01',0,1,'id'),('compliance','rules','PRIMARY','2019-07-18 07:21:45','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('compliance','rules','PRIMARY','2019-07-18 07:21:45','size',1,NULL,'Number of pages in the index'),('mysql','component','PRIMARY','2019-07-18 07:21:45','n_diff_pfx01',0,1,'component_id'),('mysql','component','PRIMARY','2019-07-18 07:21:45','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('mysql','component','PRIMARY','2019-07-18 07:21:45','size',1,NULL,'Number of pages in the index'),('mysql','gtid_executed','PRIMARY','2019-07-17 17:49:34','n_diff_pfx01',0,1,'source_uuid'),('mysql','gtid_executed','PRIMARY','2019-07-17 17:49:34','n_diff_pfx02',0,1,'source_uuid,interval_start'),('mysql','gtid_executed','PRIMARY','2019-07-17 17:49:34','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('mysql','gtid_executed','PRIMARY','2019-07-17 17:49:34','size',1,NULL,'Number of pages in the index'),('sys','sys_config','PRIMARY','2019-07-17 17:49:35','n_diff_pfx01',6,1,'variable'),('sys','sys_config','PRIMARY','2019-07-17 17:49:35','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('sys','sys_config','PRIMARY','2019-07-17 17:49:35','size',1,NULL,'Number of pages in the index');
 /*!40000 ALTER TABLE `innodb_index_stats` ENABLE KEYS */;
 
 --
@@ -426,7 +428,7 @@ INSERT  IGNORE INTO `innodb_index_stats` VALUES ('compliance','compliance_run_re
 --
 
 /*!40000 ALTER TABLE `innodb_table_stats` DISABLE KEYS */;
-INSERT  IGNORE INTO `innodb_table_stats` VALUES ('compliance','compliance_run_result','2019-07-17 18:24:37',0,1,1),('compliance','rules','2019-07-17 18:22:05',0,1,0),('mysql','component','2019-07-17 17:49:34',0,1,0),('mysql','gtid_executed','2019-07-17 17:49:34',0,1,0),('sys','sys_config','2019-07-17 17:49:35',6,1,0);
+INSERT  IGNORE INTO `innodb_table_stats` VALUES ('compliance','compliance_run_result','2019-07-18 07:21:45',0,1,1),('compliance','rules','2019-07-18 07:21:45',0,1,0),('mysql','component','2019-07-18 07:21:45',0,1,0),('mysql','gtid_executed','2019-07-17 17:49:34',0,1,0),('sys','sys_config','2019-07-17 17:49:35',6,1,0);
 /*!40000 ALTER TABLE `innodb_table_stats` ENABLE KEYS */;
 
 --
@@ -437,10 +439,10 @@ DROP TABLE IF EXISTS `password_history`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `password_history` (
-  `Host` char(60) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `User` char(32) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `Host` char(60) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
+  `User` char(32) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
   `Password_timestamp` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
-  `Password` text COLLATE utf8_bin,
+  `Password` text CHARACTER SET utf8 COLLATE utf8_bin,
   PRIMARY KEY (`Host`,`User`,`Password_timestamp` DESC)
 ) /*!50100 TABLESPACE `mysql` */ ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin STATS_PERSISTENT=0 COMMENT='Password history for user accounts';
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -485,12 +487,12 @@ DROP TABLE IF EXISTS `procs_priv`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `procs_priv` (
-  `Host` char(60) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `Db` char(64) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `User` char(32) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `Host` char(60) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
+  `Db` char(64) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
+  `User` char(32) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
   `Routine_name` char(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
-  `Routine_type` enum('FUNCTION','PROCEDURE') COLLATE utf8_bin NOT NULL,
-  `Grantor` char(93) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `Routine_type` enum('FUNCTION','PROCEDURE') CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `Grantor` char(93) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
   `Proc_priv` set('Execute','Alter Routine','Grant') CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
   `Timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`Host`,`Db`,`User`,`Routine_name`,`Routine_type`),
@@ -515,12 +517,12 @@ DROP TABLE IF EXISTS `proxies_priv`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `proxies_priv` (
-  `Host` char(60) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `User` char(32) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `Proxied_host` char(60) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `Proxied_user` char(32) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `Host` char(60) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
+  `User` char(32) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
+  `Proxied_host` char(60) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
+  `Proxied_user` char(32) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
   `With_grant` tinyint(1) NOT NULL DEFAULT '0',
-  `Grantor` char(93) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `Grantor` char(93) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
   `Timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`Host`,`User`,`Proxied_host`,`Proxied_user`),
   KEY `Grantor` (`Grantor`)
@@ -545,10 +547,10 @@ DROP TABLE IF EXISTS `role_edges`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `role_edges` (
-  `FROM_HOST` char(60) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `FROM_USER` char(32) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `TO_HOST` char(60) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `TO_USER` char(32) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `FROM_HOST` char(60) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
+  `FROM_USER` char(32) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
+  `TO_HOST` char(60) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
+  `TO_USER` char(32) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
   `WITH_ADMIN_OPTION` enum('N','Y') CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'N',
   PRIMARY KEY (`FROM_HOST`,`FROM_USER`,`TO_HOST`,`TO_USER`)
 ) /*!50100 TABLESPACE `mysql` */ ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin STATS_PERSISTENT=0 COMMENT='Role hierarchy and role grants';
@@ -721,11 +723,11 @@ DROP TABLE IF EXISTS `tables_priv`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `tables_priv` (
-  `Host` char(60) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `Db` char(64) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `User` char(32) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `Table_name` char(64) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `Grantor` char(93) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `Host` char(60) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
+  `Db` char(64) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
+  `User` char(32) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
+  `Table_name` char(64) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
+  `Grantor` char(93) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
   `Timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `Table_priv` set('Select','Insert','Update','Delete','Create','Drop','Grant','References','Index','Alter','Create View','Show view','Trigger') CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
   `Column_priv` set('Select','Insert','Update','References') CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
@@ -877,8 +879,8 @@ DROP TABLE IF EXISTS `user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `user` (
-  `Host` char(60) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `User` char(32) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `Host` char(60) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
+  `User` char(32) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
   `Select_priv` enum('N','Y') CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'N',
   `Insert_priv` enum('N','Y') CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'N',
   `Update_priv` enum('N','Y') CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'N',
@@ -916,8 +918,8 @@ CREATE TABLE `user` (
   `max_updates` int(11) unsigned NOT NULL DEFAULT '0',
   `max_connections` int(11) unsigned NOT NULL DEFAULT '0',
   `max_user_connections` int(11) unsigned NOT NULL DEFAULT '0',
-  `plugin` char(64) COLLATE utf8_bin NOT NULL DEFAULT 'caching_sha2_password',
-  `authentication_string` text COLLATE utf8_bin,
+  `plugin` char(64) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT 'caching_sha2_password',
+  `authentication_string` text CHARACTER SET utf8 COLLATE utf8_bin,
   `password_expired` enum('N','Y') CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'N',
   `password_last_changed` timestamp NULL DEFAULT NULL,
   `password_lifetime` smallint(5) unsigned DEFAULT NULL,
@@ -990,4 +992,4 @@ CREATE TABLE IF NOT EXISTS `slow_log` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-07-17 20:19:08
+-- Dump completed on 2019-07-18  8:38:14
