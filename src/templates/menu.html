@@ -21,7 +21,9 @@
 
   <!-- Custom styles for this template-->
   <link href="{{url_for('static', filename='css/sb-admin.css')}}" rel="stylesheet">
-  
+  <!-- Custom styles for this template-->
+  <link href="{{url_for('static', filename='css/bootstrap-multiselect.css')}}" rel="stylesheet">
+
 
 </head>
 
@@ -168,6 +170,58 @@
           </div>
         </div>-->
 
+       <div id="content-wrapper" >
+           <div class="row bg-light" style="padding:10px; margin-bottom: 25px;">
+                <div class="col-md-3">
+                     <select id="example-getting-selected" multiple="multiple">
+                         <option value="0">ALL</option>
+                        <option value="1">IAM</option>
+                        <option value="2">Logging</option>
+                        <!-- Option 3 will be selected in advance ... -->
+                        <option value="3">Networking</option>
+                        <option value="4">Monitoring</option>
+                        <option value="5">CIS Level 1</option>
+                        <option value="6">CIS Level 2</option>
+                         <option value="7">API Gateway security checks</option>
+                         <option value="8">RDS security checks</option>
+                         <option value="9">GDPR Readiness</option>
+                         <option value="10">HIPAA Compliance</option>
+                    </select>
+                </div>
+               <div class="col-md-2">
+                   <select id="cloud-type" multiple="multiple">
+                       <option value="1">AWS</option>
+                        <option value="2">Azure</option>
+                       <option value="3">GCP</option>
+                    </select>
+               </div>
+               <div class="col-md-2">
+                   <select id="region" multiple="multiple">
+                        <option value="1">ALL</option>
+                        <option value="2" >us-west-2</option>
+                       <option value="3">us-west-1</option>
+                    </select>
+               </div>
+               <div class="col-md-3">
+                   <button type="button" id="assessment" class="btn btn-primary">Run Assessment</button>
+                   <script type="text/javascript">
+                        document.getElementById("assessment").onclick = function () {
+                            let cloud_value = $('#cloud-type option:selected').map(function(a, item){return item.text;});
+
+                            let region_value = $('#region option:selected').map(function(a, item){return item.text;});
+
+                            let group_value = $('#example-getting-selected option:selected').map(function(a, item){return item.text;});
+
+                            console.log(region_value[0]);
+                            console.log(cloud_value[0]);
+                            console.log(group_value[0]);
+                            location.href = "http://127.0.0.1:5000/menu2?region="+region_value[0]+"&provider="+cloud_value[0]+"&groups="+group_value[0];
+                        };
+                  </script>
+               </div>
+           </div>
+
+
 			<!-- Breadcrumbs-->
         <ol class="breadcrumb">
           <li class="breadcrumb-item active">Overview</li>
@@ -251,7 +305,7 @@
 
   <!-- Page level plugin JavaScript-->
   <script src="{{ url_for('static', filename='vendor/chart.js/Chart.min.js')}}"></script>
-  <script src= "{{ url_for('static', filename='vendor/datatables/jquery.dataTables.js')}}></script>
+  <script src= "{{ url_for('static', filename='vendor/datatables/jquery.dataTables.js')}}"></script>
   <script src= "{{ url_for('static', filename='vendor/datatables/dataTables.bootstrap4.js')}}"></script>
 
   <!-- Custom scripts for all pages-->
@@ -261,7 +315,24 @@
   <script src="{{ url_for('static', filename='js/demo/datatables-demo.js')}}"></script>
   <script src="{{ url_for('static', filename='js/demo/chart-area-demo.js')}}"></script>
 
+  <script src="{{ url_for('static', filename='js/bootstrap-multiselect.js')}}"></script>
 
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#example-getting-selected').multiselect({
+            nonSelectedText: 'Audit Rule Set',
+            buttonWidth: '250px'
+        });
+
+    });
+     $(document).ready(function() {
+        $('#region').multiselect({nonSelectedText: 'Region', buttonWidth: '100px' });
+    });
+      $(document).ready(function() {
+        $('#cloud-type').multiselect({nonSelectedText: 'Cloud Provider',  buttonWidth: '200px'});
+    });
+
+</script>
 
 </body>
 
