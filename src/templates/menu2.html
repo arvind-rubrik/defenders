@@ -28,7 +28,7 @@
   text-transform: uppercase !important;
   font-weight: bold !important;
 }
-
+awsaws
 </style>
 </head>
 
@@ -45,11 +45,16 @@
     <!-- Navbar Search -->
     <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
       <div class="input-group">
-        <input type="text" class="form-control" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+        <!-- <input type="text" class="form-control" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2"> -->
         <div class="input-group-append">
-          <button class="btn btn-primary" type="button">
+          <!-- <a class="navbar-brand mr-1" href="index.html">rubrik-it@eng-cloudon</a> -->
+          <a class="nav-link dropdaws dashboard using bootstrapaws dashboard using bootstrapown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          
+          <span class="badge badge-secondary">rubrik-it @ eng-cloudon</span>
+          </a>
+          <!-- <button class="btn btn-primary" type="button">
             <i class="fas fa-search"></i>
-          </button>
+          </button> -->
         </div>
       </div>
     </form>
@@ -226,7 +231,7 @@
                       {% for message in rule.messages %}
                        <div class="col-md-12 col-md-offset-2">
                         {% if message.status == "PASS"  %}
-                         <span>
+                         <span class="text-success">
                         {% else %}
                         <span class="text-danger">
                         {% endif %}
@@ -283,7 +288,7 @@
         <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login.html">Logout</a>
+          <a class="btn btn-primary" href="logout">Logout</a>
         </div>
       </div>
     </div>

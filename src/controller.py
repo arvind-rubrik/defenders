@@ -205,6 +205,10 @@ def rules():
 
 
 def get_run_results(req_groups, req_regions, req_providers):
+  req_groups = [i.lower() for i in req_groups]
+  req_regions = [i.lower() for i in req_regions]
+  req_providers = [i.lower() for i in req_providers]
+
   results = ComplianceRuleResults.query.all()
   r = [result.toString() for result in results]
   groups = {}
@@ -220,18 +224,15 @@ def get_run_results(req_groups, req_regions, req_providers):
         grp = "Extra"
     else:
         grp = intersect[0]
-    if (grp in req_groups or ALL in req_groups) and (entry['region'] in req_regions or ALL in req_regions) and (entry['rule']['provider'] in req_providers or ALL in req_providers):
+    if (grp.lower() in req_groups or ALL in req_groups) and (entry['region'].lower() in req_regions or ALL in req_regions) and (entry['rule']['provider'].lower() in req_providers or ALL in req_providers):
         rule = entry['rule']['name']
+        desc = entry['rule']['description']
         if grp not in groups:
             groups[grp] = {'group_name': grp, 'rules' : {}}
 
         if rule not in groups[grp]['rules']:
-            if "[check" in rule:
-                rule_id = int(rule.split("]")[0].split("[check")[1])
-            elif "[extra" in rule:
-                rule_id = int(rule.split("]")[0].split("[extra")[1])
-            
-            groups[grp]['rules'][rule]= {'name': rule, 'rule_id': rule_id, 'stats': {'pass' : 0, 'fail' : 0}, 'messages': []}
+            rule_id = 0            
+            groups[grp]['rules'][rule]= {'name': rule, 'stats': {'pass' : 0, 'fail' : 0}, 'messages': []}
 
         if status:
             groups[grp]['rules'][rule]['stats']['pass']+=1
@@ -242,7 +243,6 @@ def get_run_results(req_groups, req_regions, req_providers):
 
   for g in groups:
       groups[g]['rules'] = list(groups[g]['rules'].values())
-      groups[g]['rules'] = sorted(groups[g]['rules'], key = lambda x: x['rule_id'])
   final_result = {'results': list(groups.values())}
   return final_result
 
