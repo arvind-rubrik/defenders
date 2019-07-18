@@ -175,6 +175,10 @@ def rules():
 
 
 def get_run_results(req_groups, req_regions, req_providers):
+  req_groups = [i.lower() for i in req_groups]
+  req_regions = [i.lower() for i in req_regions]
+  req_providers = [i.lower() for i in req_providers]
+
   results = ComplianceRuleResults.query.all()
   r = [result.toString() for result in results]
   groups = {}
@@ -190,7 +194,7 @@ def get_run_results(req_groups, req_regions, req_providers):
         grp = "Extra"
     else:
         grp = intersect[0]
-    if (grp in req_groups or ALL in req_groups) and (entry['region'] in req_regions or ALL in req_regions) and (entry['rule']['provider'] in req_providers or ALL in req_providers):
+    if (grp.lower() in req_groups or ALL in req_groups) and (entry['region'].lower() in req_regions or ALL in req_regions) and (entry['rule']['provider'].lower() in req_providers or ALL in req_providers):
         rule = entry['rule']['name']
         if grp not in groups:
             groups[grp] = {'group_name': grp, 'rules' : {}}
