@@ -182,29 +182,40 @@ def rules():
 
   return jsonify(final_rules)	
 
-def get_run_results():
+ALL = "all"
+res_groups =  [" Identity and Access Management", "Logging", "Monitoring", "Networking"] # "Extra"
+
+
+def get_run_results(req_groups, req_regions, req_providers):
   results = ComplianceRuleResults.query.all()
   r = [result.toString() for result in results]
-
   groups = {}
+#   print(json.dumps(r))
   for entry in r:
     status = 0
     if entry['result']=="PASS":
         status = 1
-    grp = entry['rule']['groups'][0]
-    rule = entry['rule']['name']
-    if grp not in groups:
-        groups[grp] = {'group_name': grp, 'rules' : {}}
-
-    if rule not in groups[grp]['rules']:
-        groups[grp]['rules'][rule]= {'name': rule, 'stats': {'pass' : 0, 'fail' : 0}, 'messages': []}
-
-    if status:
-        groups[grp]['rules'][rule]['stats']['pass']+=1
+    # grp = entry['rule']['groups'][i]
+    entry['rule']['groups'] = [j.encode('ascii','ignore') for j in entry['rule']['groups']]
+    intersect = list(set(entry['rule']['groups']) & set(res_groups))
+    if len(intersect)==0:
+        grp = "Extra"
     else:
-        groups[grp]['rules'][rule]['stats']['fail']+=1
+        grp = intersect[0]
+    if (grp in req_groups or ALL in req_groups) and (entry['region'] in req_regions or ALL in req_regions) and (entry['rule']['provider'] in req_providers or ALL in req_providers):
+        rule = entry['rule']['name']
+        if grp not in groups:
+            groups[grp] = {'group_name': grp, 'rules' : {}}
 
-    groups[grp]['rules'][rule]['messages'].append({'message' : entry['message'], 'status': entry['result'], 'region':entry['region']})
+        if rule not in groups[grp]['rules']:
+            groups[grp]['rules'][rule]= {'name': rule, 'stats': {'pass' : 0, 'fail' : 0}, 'messages': []}
+
+        if status:
+            groups[grp]['rules'][rule]['stats']['pass']+=1
+        else:
+            groups[grp]['rules'][rule]['stats']['fail']+=1
+
+        groups[grp]['rules'][rule]['messages'].append({'message' : entry['message'], 'status': entry['result'], 'region':entry['region']})
 
   for g in groups:
       groups[g]['rules'] = list(groups[g]['rules'].values())
@@ -216,7 +227,7 @@ def get_run_results():
 @app.route('/rule_results')
 def rule_results():
 #   print(json.dumps(final_result))
-  final_result = get_run_results()
+  final_result = get_run_results(res_groups,[ALL],[ALL])
   return jsonify(meta = "success", result = final_result)
 
 if __name__ == '__main__':
