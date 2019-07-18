@@ -58,11 +58,10 @@ def login():
 def menu():
 	if not session.get('logged'):
 		return redirect(url_for('login'))
-	with open('menu.json') as json_file:
-		data = json.load(json_file)
-		group_ids = []
-		for p in data:
-			group_ids.append(p['groupId'])
+	data = get_rules()
+	group_ids = []
+	for p in data:
+		group_ids.append(p['groupId'])
 
 	request_group_id = str(request.args.get('groupId'))
 	if request_group_id in group_ids:
@@ -71,9 +70,9 @@ def menu():
 			for r in p['rules']:
 				key = p['groupId']
 				if (dic.has_key(key)):
-					dic[key].append([r['ruleName'], r['severity'], r['provider']])
+					dic[key].append([r['name'], r['severity'], r['provider']])
 				else:
-					dic[key]= [[r['ruleName'], r['severity'], r['provider']]]
+					dic[key]= [[r['name'], r['severity'], r['provider']]]
 		return render_template(MENU_VIEW, groupIds=group_ids, mylist=dic[request_group_id])
 	else:
 		return render_template(MENU_VIEW, groupIds=group_ids)	
@@ -136,9 +135,7 @@ def add_rule():
 		return redirect(url_for('login'))
 	return render_template(ADD_RULE_VIEW)
 
-
-@app.route('/rules')
-def rules():
+def get_rules():
   rules = Rules.query.all()
   r = [rule.toString() for rule in rules]
 
@@ -152,13 +149,16 @@ def rules():
   		if name not in groups[grp]['rules']:
   			groups[grp]['rules'][name] = {'severity': entry['severity'], 'provider': entry['provider'], 'name': name}
 
-
   for g in groups:
   	groups[g]['rules'] = list(groups[g]['rules'].values())
 
-  final_rules = list(groups.values())
+	final_rules = list(groups.values())
+	return final_rules
 
-  return jsonify(final_rules)
+@app.route('/rules')
+def rules():
+	frules = get_rules()
+	return jsonify(frules)
 
 def get_run_results():
   results = ComplianceRuleResults.query.all()
