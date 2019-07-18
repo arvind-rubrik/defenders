@@ -93,8 +93,14 @@ def menu2():
         groups = request.args.get('groups')
         #results = ComplianceRuleResults.query.all()
         #r = [result.toString() for result in results]
-        final_result = get_run_results([ALL], [ALL], [ALL])
-        print(final_result)
+        if groups is None:
+            groups = ALL
+        if region is None:
+            region = ALL
+        if provider is None:
+            provider = ALL
+        final_result = get_run_results(groups.split(","), region.split(","), provider.split(","))
+        # print(final_result)
         return render_template(MENU2_VIEW, provider=provider, region=region,
                 groups = groups, results=final_result['results'])	
 
@@ -153,7 +159,7 @@ def rules():
   	for group in entry['groups']:
   		grp = group.strip()
   		if grp not in groups:
-  			print(grp)
+  			# print(grp)
   			groups[grp] = {'groupId' : grp, 'rules' : {}}
 
   		if name not in groups[grp]['rules']:
