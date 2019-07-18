@@ -192,7 +192,7 @@
 {% for item in results %}
   {% set outer_loop = loop %}
   <div>
-        <h5>{{item.group_name}}</h5>
+        <div><b>{{item.group_name}}</b></div>
         {% for rule in item.rules %}
           <div class="panel panel-default">
             <div class="panel-heading" role="tab" id="headingOne{{outer_loop.index}}_{{loop.index}}">
