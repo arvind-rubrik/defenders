@@ -64,6 +64,14 @@ def menu():
 	if not session.get('logged'):
 		return redirect(url_for('login'))
 	data = get_rules()
+	for p in data:
+		p['groupId'] = p['groupId'].replace(" ", "-")
+		
+	rules = Rules.query.all()
+	r = [rule.toString() for rule in rules]
+	alldata = []
+	for entry in r:
+		alldata.append([entry['name'], entry['severity'], entry['provider']])
 	group_ids = []
 	for p in data:
 		group_ids.append(p['groupId'])
@@ -75,12 +83,12 @@ def menu():
 			for r in p['rules']:
 				key = p['groupId']
 				if (dic.has_key(key)):
-					dic[key].append([r['name'], r['severity'], r['provider']])
+					dic[key].append([str(r['name']), str(r['severity']), str(r['provider'])])
 				else:
-					dic[key]= [[r['name'], r['severity'], r['provider']]]
+					dic[key]= [[str(r['name']), str(r['severity']), str(r['provider'])]]
 		return render_template(MENU_VIEW, groupIds=group_ids, mylist=dic[request_group_id], cur_group_id=request_group_id)
 	else:
-		return render_template(MENU_VIEW, groupIds=group_ids)	
+		return render_template(MENU_VIEW, groupIds=group_ids, alldata=alldata)	
 		
 # MENU PAGE
 @app.route('/menu2',methods=['GET','POST'])
