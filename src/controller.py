@@ -5,6 +5,11 @@ import os,subprocess,MySQLdb
 from werkzeug import secure_filename
 from src.models import Rules, ComplianceRuleResults
 
+
+ALL = "all"
+res_groups =  ["Identity and Access Management", "Logging", "Monitoring", "Networking"] # "Extra"
+
+
 # SQL CONSTANT
 #DATABASE_NAME = "trial"
 #DATABASE_PASSWORD = "password"
@@ -87,7 +92,7 @@ def menu2():
         groups = request.args.get('groups')
         #results = ComplianceRuleResults.query.all()
         #r = [result.toString() for result in results]
-        final_result = get_run_results()
+        final_result = get_run_results([ALL], [ALL], [ALL])
         print(final_result)
         return render_template(MENU2_VIEW, provider=provider, region=region,
                 groups = groups, results=final_result['results'])	
@@ -181,9 +186,6 @@ def rules():
   final_rules = list(groups.values())
 
   return jsonify(final_rules)	
-
-ALL = "all"
-res_groups =  [" Identity and Access Management", "Logging", "Monitoring", "Networking"] # "Extra"
 
 
 def get_run_results(req_groups, req_regions, req_providers):
