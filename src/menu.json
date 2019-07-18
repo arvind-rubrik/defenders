@@ -1,0 +1,127 @@
+[
+  {
+    "groupId": "group-0",
+    "rules": [
+      {
+        "ruleId": 0,
+        "ruleName": "May Blankenship"
+      },
+      {
+        "ruleId": 1,
+        "ruleName": "Randolph Olson"
+      },
+      {
+        "ruleId": 2,
+        "ruleName": "Puckett Ellison"
+      },
+      {
+        "ruleId": 3,
+        "ruleName": "Lorraine Wade"
+      },
+      {
+        "ruleId": 4,
+        "ruleName": "Gwen Jefferson"
+      }
+    ]
+  },
+  {
+    "groupId": "group-1",
+    "rules": [
+      {
+        "ruleId": 0,
+        "ruleName": "Sophia Glass"
+      },
+      {
+        "ruleId": 1,
+        "ruleName": "Oneal Sloan"
+      },
+      {
+        "ruleId": 2,
+        "ruleName": "Irwin Day"
+      },
+      {
+        "ruleId": 3,
+        "ruleName": "Gayle Lowery"
+      },
+      {
+        "ruleId": 4,
+        "ruleName": "Hillary Dawson"
+      }
+    ]
+  },
+  {
+    "groupId": "group-2",
+    "rules": [
+      {
+        "ruleId": 0,
+        "ruleName": "Shepard Kaufman"
+      },
+      {
+        "ruleId": 1,
+        "ruleName": "Krista Sosa"
+      },
+      {
+        "ruleId": 2,
+        "ruleName": "Cohen Carson"
+      },
+      {
+        "ruleId": 3,
+        "ruleName": "Bernadine David"
+      },
+      {
+        "ruleId": 4,
+        "ruleName": "Elba Strong"
+      }
+    ]
+  },
+  {
+    "groupId": "group-3",
+    "rules": [
+      {
+        "ruleId": 0,
+        "ruleName": "Audra Wagner"
+      },
+      {
+        "ruleId": 1,
+        "ruleName": "Ferguson Rose"
+      },
+      {
+        "ruleId": 2,
+        "ruleName": "Noemi Douglas"
+      },
+      {
+        "ruleId": 3,
+        "ruleName": "Glover Andrews"
+      },
+      {
+        "ruleId": 4,
+        "ruleName": "Leanna Hamilton"
+      }
+    ]
+  },
+  {
+    "groupId": "group-4",
+    "rules": [
+      {
+        "ruleId": 0,
+        "ruleName": "Bell Livingston"
+      },
+      {
+        "ruleId": 1,
+        "ruleName": "Rios England"
+      },
+      {
+        "ruleId": 2,
+        "ruleName": "Larson Charles"
+      },
+      {
+        "ruleId": 3,
+        "ruleName": "Sofia Black"
+      },
+      {
+        "ruleId": 4,
+        "ruleName": "Nolan Velez"
+      }
+    ]
+  }
+]
