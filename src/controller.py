@@ -64,7 +64,19 @@ def login():
 def menu():
 	if not session.get('logged'):
 		return redirect(url_for('login'))
-	return render_template(MENU_VIEW)	
+	dic = {}
+	with open('menu.json') as json_file:
+		data = json.load(json_file)
+		for p in data:
+			for r in p['rules']:
+				key = p['groupId']
+				if (dic.has_key(key)):
+					dic[key].append(r['ruleName'])
+				else:
+					dic[key]= [r['ruleName']]
+				print p['groupId'], r['ruleName']
+	print dic
+	return render_template(MENU_VIEW, mylist=dic['group-1'])	
 
 # RUN TEST PAGE
 @app.route('/run',methods=['GET','POST'])
