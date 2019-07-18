@@ -79,8 +79,10 @@ def menu2():
 	provider = request.args.get('provider')
         region = request.args.get('region')
         groups = request.args.get('groups')
+        results = ComplianceRuleResults.query.all()
+        r = [result.toString() for result in results]
         return render_template(MENU2_VIEW, provider=provider, region=region,
-                groups = groups)	
+                groups = groups, results=r)	
 # RUN TEST PAGE
 @app.route('/run',methods=['GET','POST'])
 def run():
