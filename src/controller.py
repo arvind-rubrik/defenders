@@ -100,8 +100,14 @@ def menu2():
         groups = request.args.get('groups')
         #results = ComplianceRuleResults.query.all()
         #r = [result.toString() for result in results]
-        final_result = get_run_results([ALL], [ALL], [ALL])
-        print(final_result)
+        if groups is None:
+            groups = ALL
+        if region is None:
+            region = ALL
+        if provider is None:
+            provider = ALL
+        final_result = get_run_results(groups.split(","), region.split(","), provider.split(","))
+        # print(final_result)
         return render_template(MENU2_VIEW, provider=provider, region=region,
                 groups = groups, results=final_result['results'])	
 
@@ -181,7 +187,7 @@ def rules():
   	for group in entry['groups']:
   		grp = group.strip()
   		if grp not in groups:
-  			print(grp)
+  			# print(grp)
   			groups[grp] = {'groupId' : grp, 'rules' : {}}
 
   		if name not in groups[grp]['rules']:
@@ -218,7 +224,12 @@ def get_run_results(req_groups, req_regions, req_providers):
             groups[grp] = {'group_name': grp, 'rules' : {}}
 
         if rule not in groups[grp]['rules']:
-            groups[grp]['rules'][rule]= {'name': rule, 'stats': {'pass' : 0, 'fail' : 0}, 'messages': []}
+            if "[check" in rule:
+                rule_id = int(rule.split("]")[0].split("[check")[1])
+            elif "[extra" in rule:
+                rule_id = int(rule.split("]")[0].split("[extra")[1])
+            
+            groups[grp]['rules'][rule]= {'name': rule, 'rule_id': rule_id, 'stats': {'pass' : 0, 'fail' : 0}, 'messages': []}
 
         if status:
             groups[grp]['rules'][rule]['stats']['pass']+=1
@@ -229,6 +240,7 @@ def get_run_results(req_groups, req_regions, req_providers):
 
   for g in groups:
       groups[g]['rules'] = list(groups[g]['rules'].values())
+      groups[g]['rules'] = sorted(groups[g]['rules'], key = lambda x: x['rule_id'])
   final_result = {'results': list(groups.values())}
   return final_result
 
