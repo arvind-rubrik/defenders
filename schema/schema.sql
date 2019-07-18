@@ -68,7 +68,7 @@ CREATE TABLE `rules` (
   `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
   `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
   `severity` varchar(31) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
-  `group` varchar(31) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `rgroup` varchar(1023) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `entity_type` varchar(31) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `provider` varchar(31) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`id`)

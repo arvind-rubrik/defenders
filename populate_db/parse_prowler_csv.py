@@ -32,19 +32,33 @@ class rule(object):
         return x
         
     def __init__(self, id, title, level):
-        self.id = rule.get_id(id)
-        self.name = title
+        self.severity = level
+        
+        index = title.find("[")
+        if index == -1:
+            name = "----"
+            description = title
+        else:
+            index2 = title.find("]")
+            name = title[index+1:index2]
+            description = title[index2+1:]
+        self.name = name
         self.provider = "AWS"
         self.entity_type = "DUMMY_TYPE"
         self.group = int(float(id))
-        self.severity = level
-        self.descritpion = title
+        self.descritpion = description
+        if level == "Support":
+            return
+        self.id = rule.get_id(id)
     
     def __str__(self):
-        return "%s -- %s" % (self.id, self.name)
+        
+        return "%s -- %s -- %s" % (self.name, self.descritpion, self.severity)
     
     def persist(self, db):
-        sql = "INSERT INTO rules (id, name, description, severity, `group`, entity_type, provider) values (%s, %s, %s, %s, %s, %s, %s)"
+        if self.severity == "Support":
+            return
+        sql = "INSERT INTO rules (id, name, description, severity, rgroup, entity_type, provider) values (%s, %s, %s, %s, %s, %s, %s)"
         val = (self.id, self.name, self.descritpion, self.severity, self.group, self.entity_type, self.provider)
         print(sql, val)
         db.cursor().execute(sql, val)
@@ -69,8 +83,9 @@ def get_rules(csv):
 
 def insert_all(csv_contents):
     for index, row in csv_contents.iterrows():
-        result = compliance_run_result(row["TITLE_ID"], row["NOTES"], row["RESULT"], "AWS", row["REGION"])
-        insert_rule_result(db, result)
+        if row["RESULT"] != "INFO":
+            result = compliance_run_result(row["TITLE_ID"], row["NOTES"], row["RESULT"], "AWS", row["REGION"])
+            insert_rule_result(db, result)
 
 def insert_rules(rules, db):
     print(type(rules), rules)
