@@ -10,7 +10,7 @@ from src.models import Rules, ComplianceRuleResults
 from models import *
 
 # CONSTANTS
-ADMIN = "admi"
+ADMIN = "admin"
 
 # HTML FILES 
 LOGIN_VIEW = "homepage.html"
