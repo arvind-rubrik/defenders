@@ -137,8 +137,10 @@ def rules():
   groups = {}
   for entry in r:
   	name = entry['name']
-  	for grp in entry['groups']:
+  	for group in entry['groups']:
+  		grp = group.strip()
   		if grp not in groups:
+  			print(grp)
   			groups[grp] = {'groupId' : grp, 'rules' : {}}
 
   		if name not in groups[grp]['rules']:
