@@ -137,7 +137,32 @@ def rules():
 def rule_results():
   results = ComplianceRuleResults.query.all()
   r = [result.toString() for result in results]
-  return jsonify(meta = "success", result = r)
+
+  groups = {}
+  for entry in r:
+    status = 0
+    if entry['result']=="PASS":
+        status = 1
+    grp = entry['rule']['groups'][0]
+    rule = entry['rule']['name']
+    if grp not in groups:
+        groups[grp] = {'group_name': grp, 'rules' : {}}
+
+    if rule not in groups[grp]['rules']:
+        groups[grp]['rules'][rule]= {'name': rule, 'stats': {'pass' : 0, 'fail' : 0}, 'messages': []}
+
+    if status:
+        groups[grp]['rules'][rule]['stats']['pass']+=1
+    else:
+        groups[grp]['rules'][rule]['stats']['fail']+=1
+
+    groups[grp]['rules'][rule]['messages'].append({'message' : entry['message'], 'status': entry['result'], 'region':entry['region']})
+
+  for g in groups:
+      groups[g]['rules'] = list(groups[g]['rules'].values())
+  final_result = {'results': list(groups.values())}
+#   print(json.dumps(final_result))
+  return jsonify(meta = "success", result = final_result)
 
 if __name__ == '__main__':
 #db.create_all()
