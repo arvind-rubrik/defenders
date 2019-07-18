@@ -4,6 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 import os,subprocess,MySQLdb
 from werkzeug import secure_filename
 from src.models import Rules, ComplianceRuleResults
+
 # SQL CONSTANT
 #DATABASE_NAME = "trial"
 #DATABASE_PASSWORD = "password"
@@ -56,20 +57,26 @@ def login():
 def menu():
 	if not session.get('logged'):
 		return redirect(url_for('login'))
-	dic = {}
 	with open('menu.json') as json_file:
 		data = json.load(json_file)
+		group_ids = []
+		for p in data:
+			group_ids.append(p['groupId'])
+
+	request_group_id = str(request.args.get('groupId'))
+	if request_group_id in group_ids:
+		dic = {}
 		for p in data:
 			for r in p['rules']:
 				key = p['groupId']
 				if (dic.has_key(key)):
-					dic[key].append(r['ruleName'])
+					dic[key].append([r['ruleName'], r['severity'], r['provider']])
 				else:
-					dic[key]= [r['ruleName']]
-				print p['groupId'], r['ruleName']
-	print dic
-	return render_template(MENU_VIEW, mylist=dic['group-1'])	
-
+					dic[key]= [[r['ruleName'], r['severity'], r['provider']]]
+		return render_template(MENU_VIEW, groupIds=group_ids, mylist=dic[request_group_id])
+	else:
+		return render_template(MENU_VIEW, groupIds=group_ids)	
+		
 # RUN TEST PAGE
 @app.route('/run',methods=['GET','POST'])
 def run():
