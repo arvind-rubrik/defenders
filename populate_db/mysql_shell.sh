@@ -1,1 +1,1 @@
-sudo docker exec -it work_db_1 mysql -upankaj -p
+sudo docker exec -it work_db_1 mysql -upankaj -p -D compliance

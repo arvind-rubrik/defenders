@@ -1,0 +1,152 @@
+[
+  {
+    "groupId": "group-0",
+    "rules": [
+      {
+        "severity": 0,
+        "provider": 0,
+        "ruleName": "Ila Hobbs"
+      },
+      {
+        "severity": 1,
+        "provider": 1,
+        "ruleName": "Natalie Maldonado"
+      },
+      {
+        "severity": 2,
+        "provider": 2,
+        "ruleName": "Mccormick Chen"
+      },
+      {
+        "severity": 3,
+        "provider": 3,
+        "ruleName": "Hendrix Wooten"
+      },
+      {
+        "severity": 4,
+        "provider": 4,
+        "ruleName": "Douglas Wolfe"
+      }
+    ]
+  },
+  {
+    "groupId": "group-1",
+    "rules": [
+      {
+        "severity": 0,
+        "provider": 0,
+        "ruleName": "Ball Williamson"
+      },
+      {
+        "severity": 1,
+        "provider": 1,
+        "ruleName": "Charlotte Phillips"
+      },
+      {
+        "severity": 2,
+        "provider": 2,
+        "ruleName": "Fleming Campbell"
+      },
+      {
+        "severity": 3,
+        "provider": 3,
+        "ruleName": "Ingram Davidson"
+      },
+      {
+        "severity": 4,
+        "provider": 4,
+        "ruleName": "Parker Ratliff"
+      }
+    ]
+  },
+  {
+    "groupId": "group-2",
+    "rules": [
+      {
+        "severity": 0,
+        "provider": 0,
+        "ruleName": "Eula Kelley"
+      },
+      {
+        "severity": 1,
+        "provider": 1,
+        "ruleName": "Rae Martin"
+      },
+      {
+        "severity": 2,
+        "provider": 2,
+        "ruleName": "Felecia Nguyen"
+      },
+      {
+        "severity": 3,
+        "provider": 3,
+        "ruleName": "Stacy Carson"
+      },
+      {
+        "severity": 4,
+        "provider": 4,
+        "ruleName": "Roseann Haynes"
+      }
+    ]
+  },
+  {
+    "groupId": "group-3",
+    "rules": [
+      {
+        "severity": 0,
+        "provider": 0,
+        "ruleName": "Essie Pate"
+      },
+      {
+        "severity": 1,
+        "provider": 1,
+        "ruleName": "Opal Clements"
+      },
+      {
+        "severity": 2,
+        "provider": 2,
+        "ruleName": "Huber Franklin"
+      },
+      {
+        "severity": 3,
+        "provider": 3,
+        "ruleName": "Waller Woods"
+      },
+      {
+        "severity": 4,
+        "provider": 4,
+        "ruleName": "Soto Frye"
+      }
+    ]
+  },
+  {
+    "groupId": "group-4",
+    "rules": [
+      {
+        "severity": 0,
+        "provider": 0,
+        "ruleName": "Kathryn Whitfield"
+      },
+      {
+        "severity": 1,
+        "provider": 1,
+        "ruleName": "Hurley Rogers"
+      },
+      {
+        "severity": 2,
+        "provider": 2,
+        "ruleName": "Rene Graves"
+      },
+      {
+        "severity": 3,
+        "provider": 3,
+        "ruleName": "Ramsey Cote"
+      },
+      {
+        "severity": 4,
+        "provider": 4,
+        "ruleName": "Patty Brooks"
+      }
+    ]
+  }
+]
