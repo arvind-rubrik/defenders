@@ -4,7 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 import os,subprocess,MySQLdb
 from werkzeug import secure_filename
 from src.models import Rules, ComplianceRuleResults
-
+import time
 
 ALL = "all"
 res_groups =  ["Identity and Access Management", "Logging", "Monitoring", "Networking"] # "Extra"
@@ -97,21 +97,22 @@ def menu():
 def menu2():
 	if not session.get('logged'):
 		return redirect(url_for('login'))
+	time.sleep(7)
 	provider = request.args.get('provider')
-        region = request.args.get('region')
-        groups = request.args.get('groups')
-        #results = ComplianceRuleResults.query.all()
-        #r = [result.toString() for result in results]
-        if groups is None:
-            groups = ALL
-        if region is None:
-            region = ALL
-        if provider is None:
-            provider = ALL
-        final_result = get_run_results(groups.split(","), region.split(","), provider.split(","))
-        # print(final_result)
-        return render_template(MENU2_VIEW, provider=provider, region=region,
-                groups = groups, results=final_result['results'])	
+	region = request.args.get('region')
+	groups = request.args.get('groups')
+	#results = ComplianceRuleResults.query.all()
+	#r = [result.toString() for result in results]
+	if groups is None:
+			groups = ALL
+	if region is None:
+			region = ALL
+	if provider is None:
+			provider = ALL
+	final_result = get_run_results(groups.split(","), region.split(","), provider.split(","))
+	# print(final_result)
+	return render_template(MENU2_VIEW, provider=provider, region=region,
+					groups = groups, results=final_result['results'])	
 
 # RUN TEST PAGE
 @app.route('/run',methods=['GET','POST'])
