@@ -202,15 +202,15 @@
                                        href="#collapseOne{{outer_loop.index}}_{{loop.index}}" aria-expanded="true" aria-controls="collapseOne">
                           <i class="more-less fa fa-plus"></i>
                           <div class="row">
-                            <div class="col-sm-8">{{rule.name}} </div>
-                            <div class="col-sm-2">
+                            <div class="col-sm-10">{{rule.name}} </div>
+                            <div class="col-sm-1">
                               {% if rule.stats.pass > 0  %}
-                                <span class="text-success">Passed {{rule.stats.pass}}   </span>
+                               {{rule.stats.pass}} &nbsp;<span class="text-success fa fa-check">    </span>
                               {% endif %}
                             </div>
-                            <div class="col-sm-2">
+                            <div class="col-sm-1">
                               {% if rule.stats.fail > 0  %}
-                                <span class="text-danger">Failed {{rule.stats.fail}}</span>
+                                {{rule.stats.fail}} &nbsp; <span class="text-danger fa fa-exclamation-triangle"> </span>
                               {% endif %}
                             </div>
                         </div>
