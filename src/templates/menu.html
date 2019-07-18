@@ -40,11 +40,16 @@
     <!-- Navbar Search -->
     <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
       <div class="input-group">
-        <input type="text" class="form-control" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+        <!-- <input type="text" class="form-control" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2"> -->
         <div class="input-group-append">
-          <button class="btn btn-primary" type="button">
+          <!-- <a class="navbar-brand mr-1" href="index.html">rubrik-it@eng-cloudon</a> -->
+          <a class="nav-link dropdaws dashboard using bootstrapaws dashboard using bootstrapown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          
+          <span class="badge badge-secondary">rubrik-it @ eng-cloudon</span>
+          </a>
+          <!-- <button class="btn btn-primary" type="button">
             <i class="fas fa-search"></i>
-          </button>
+          </button> -->
         </div>
       </div>
     </form>
@@ -121,29 +126,13 @@
           <i class="fas fa-fw fa-chart-area"></i>
           <span>Charts</span></a>
       </li>-->
-      <li class="nav-item">
-        <a class="nav-link" href="">
+			{% for x in groupIds %}
+			<li class="nav-item">
+				<a class="nav-link" href={{ "/menu"+"?"+"groupId=" + x }}>
           <i class="fas fa-fw fa-table"></i>
-          <span>Network</span></a>
+          <span>{% print x.replace("-", " ") %}</span></a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="">
-          <i class="fas fa-fw fa-table"></i>
-          <span>Security</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="">
-          <i class="fas fa-fw fa-table"></i>
-          <span>IAM</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="">
-          <i class="fas fa-fw fa-table"></i>
-          <span>Monitoring</span></a>
-      </li>
-
-
-
+			{% endfor %}
     </ul>
 
     <div id="content-wrapper">
@@ -223,6 +212,58 @@
 
 
 			<!-- Breadcrumbs-->
+		
+
+			{% if not cur_group_id %}
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item active">Overview</li>
+        </ol>
+
+        <!-- DataTables Example -->
+        <div class="card mb-3">
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                  <tr>
+                    <th>Rule Description</th>
+										<th>Severity</th>
+										<th>Provider</th>
+                  </tr>
+                </thead>
+                 <tbody>
+									{% for i in alldata %}
+									<tr>
+                    <td>{% print i[0] %}</td>
+                    <td>{% print i[1] %}</td>
+                    <td>{% print i[2] %}</td>
+                  </tr>
+                   {% endfor %}
+                  </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="card-footer small text-muted">Updated at 04:23 PM</div>
+        </div>
+
+      </div>
+		{% endif %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			{% if cur_group_id %}
         <ol class="breadcrumb">
           <li class="breadcrumb-item active">Overview</li>
         </ol>
@@ -230,30 +271,34 @@
         <!-- DataTables Example -->
         <div class="card mb-3">
           <div class="card-header">
-            <i class="fas fa-table"></i>
-           Group: <strong>group-0</strong></div>
+            <i class="fas fa-table"></i> Group: <strong>{% print cur_group_id.replace("-", " ") %}</strong></div>
           <div class="card-body">
             <div class="table-responsive">
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                   <tr>
                     <th>Rule Description</th>
+										<th>Severity</th>
+										<th>Provider</th>
                   </tr>
                 </thead>
                  <tbody>
 									{% for i in mylist %}
 									<tr>
-                    <td>{% print i %}</td>
+                    <td>{% print i[0] %}</td>
+                    <td>{% print i[1] %}</td>
+                    <td>{% print i[2] %}</td>
                   </tr>
                    {% endfor %}
                   </tbody>
               </table>
             </div>
           </div>
-          <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+          <div class="card-footer small text-muted">Updated at 04:23 PM</div>
         </div>
 
       </div>
+		{% endif %}
       <!-- /.container-fluid -->
 
       <!-- Sticky Footer -->

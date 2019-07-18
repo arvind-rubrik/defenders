@@ -28,7 +28,7 @@
   text-transform: uppercase !important;
   font-weight: bold !important;
 }
-
+awsaws
 </style>
 </head>
 
@@ -45,11 +45,16 @@
     <!-- Navbar Search -->
     <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
       <div class="input-group">
-        <input type="text" class="form-control" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+        <!-- <input type="text" class="form-control" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2"> -->
         <div class="input-group-append">
-          <button class="btn btn-primary" type="button">
+          <!-- <a class="navbar-brand mr-1" href="index.html">rubrik-it@eng-cloudon</a> -->
+          <a class="nav-link dropdaws dashboard using bootstrapaws dashboard using bootstrapown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          
+          <span class="badge badge-secondary">rubrik-it @ eng-cloudon</span>
+          </a>
+          <!-- <button class="btn btn-primary" type="button">
             <i class="fas fa-search"></i>
-          </button>
+          </button> -->
         </div>
       </div>
     </form>
@@ -190,57 +195,58 @@
 
     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 {% for item in results %}
-        <div class="panel panel-default">
-          <div class="panel-heading" role="tab" id="headingOne{{loop.index}}">
-                <h4 class="panel-title">
-                    <a role="button" data-toggle="collapse"
-                                     data-parent="#accordion"
-                                     href="#collapseOne{{loop.index}}" aria-expanded="true" aria-controls="collapseOne">
-                        <i class="more-less fa fa-plus"></i>
-                        {{item.group_name}} #1
-                    </a>
-                </h4>
-            </div>
-            <div id="collapseOne{{loop.index}}" class="panel-collapse collapse"
-                                                role="tabpanel"
-                                                aria-labelledby="headingOne{{loop.index}}">
-                <div class="panel-body">
-                  {{item.rules}}
-                </div>
-            </div>
-        </div>
+  {% set outer_loop = loop %}
+  <div>
+        <div><h3><b>{{item.group_name}}</b></h3></div>
+        {% for rule in item.rules %}
+          <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headingOne{{outer_loop.index}}_{{loop.index}}">
+                  <h4 class="panel-title">
+                      <a role="button" data-toggle="collapse"
+                                       data-parent="#accordion"
+                                       href="#collapseOne{{outer_loop.index}}_{{loop.index}}" aria-expanded="true" aria-controls="collapseOne"
+                                       class="text-dark">
+                          <i class="more-less fa fa-plus"></i>
+                          <div class="row">
+                            <div class="col-sm-10">{{rule.name}} </div>
+                            <div class="col-sm-1">
+                              {% if rule.stats.pass > 0  %}
+                               {{rule.stats.pass}} &nbsp;<span class="text-success fa fa-check">    </span>
+                              {% endif %}
+                            </div>
+                            <div class="col-sm-1">
+                              {% if rule.stats.fail > 0  %}
+                                {{rule.stats.fail}} &nbsp; <span class="text-danger fa fa-exclamation-triangle"> </span>
+                              {% endif %}
+                            </div>
+                        </div>
+                      </a>
+                  </h4>
+              </div>
+              <div id="collapseOne{{outer_loop.index}}_{{loop.index}}" class="panel-collapse collapse"
+                                                  role="tabpanel"
+                                                  aria-labelledby="headingOne{{outer_loop.index}}_{{loop.index}}">
+                  <div class="panel-body">
+                     <div class="row" style="padding-left:20px;">
+                      {% for message in rule.messages %}
+                       <div class="col-md-12 col-md-offset-2">
+                        {% if message.status == "PASS"  %}
+                         <span class="text-success">
+                        {% else %}
+                        <span class="text-danger">
+                        {% endif %}
+                        {{message.message}}
+                      </span>
+                      </div>
+                       {% endfor %}
+                     </div>
+                  </div>
+              </div>
+          </div>
+        {% endfor %}
+    </div>
 {% endfor %}
-        <div class="panel panel-default">
-            <div class="panel-heading" role="tab" id="headingTwo">
-                <h4 class="panel-title">
-                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                        <i class="more-less fa fa-plus"></i>
-                        Collapsible Group Item #2
-                    </a>
-                </h4>
-            </div>
-            <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-                <div class="panel-body">
-                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                </div>
-            </div>
-        </div>
-
-        <div class="panel panel-default">
-            <div class="panel-heading" role="tab" id="headingThree">
-                <h4 class="panel-title">
-                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                        <i class="more-less fa fa-plus"></i>
-                        Collapsible Group Item #3
-                    </a>
-                </h4>
-            </div>
-            <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
-                <div class="panel-body">
-                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                </div>
-            </div>
-        </div>
+       
 
     </div><!-- panel-group -->
 
@@ -282,7 +288,7 @@
         <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login.html">Logout</a>
+          <a class="btn btn-primary" href="logout">Logout</a>
         </div>
       </div>
     </div>

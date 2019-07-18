@@ -4,6 +4,12 @@ from flask_sqlalchemy import SQLAlchemy
 import os,subprocess,MySQLdb
 from werkzeug import secure_filename
 from src.models import Rules, ComplianceRuleResults
+
+
+ALL = "all"
+res_groups =  ["Identity and Access Management", "Logging", "Monitoring", "Networking"] # "Extra"
+
+
 # SQL CONSTANT
 #DATABASE_NAME = "trial"
 #DATABASE_PASSWORD = "password"
@@ -57,20 +63,33 @@ def login():
 def menu():
 	if not session.get('logged'):
 		return redirect(url_for('login'))
-	dic = {}
-	with open('menu.json') as json_file:
-		data = json.load(json_file)
+	data = get_rules()
+	for p in data:
+		p['groupId'] = p['groupId'].replace(" ", "-")
+		
+	rules = Rules.query.all()
+	r = [rule.toString() for rule in rules]
+	alldata = []
+	for entry in r:
+		alldata.append([entry['name'], entry['severity'], entry['provider']])
+	group_ids = []
+	for p in data:
+		group_ids.append(p['groupId'])
+
+	request_group_id = str(request.args.get('groupId'))
+	if request_group_id in group_ids:
+		dic = {}
 		for p in data:
 			for r in p['rules']:
 				key = p['groupId']
 				if (dic.has_key(key)):
-					dic[key].append(r['ruleName'])
+					dic[key].append([str(r['name']), str(r['severity']), str(r['provider'])])
 				else:
-					dic[key]= [r['ruleName']]
-				print p['groupId'], r['ruleName']
-	print dic
-	return render_template(MENU_VIEW, mylist=dic['group-1'])	
-
+					dic[key]= [[str(r['name']), str(r['severity']), str(r['provider'])]]
+		return render_template(MENU_VIEW, groupIds=group_ids, mylist=dic[request_group_id], cur_group_id=request_group_id)
+	else:
+		return render_template(MENU_VIEW, groupIds=group_ids, alldata=alldata)	
+		
 # MENU PAGE
 @app.route('/menu2',methods=['GET','POST'])
 def menu2():
@@ -81,10 +100,17 @@ def menu2():
         groups = request.args.get('groups')
         #results = ComplianceRuleResults.query.all()
         #r = [result.toString() for result in results]
-        final_result = get_run_results()
-        print(final_result)
+        if groups is None:
+            groups = ALL
+        if region is None:
+            region = ALL
+        if provider is None:
+            provider = ALL
+        final_result = get_run_results(groups.split(","), region.split(","), provider.split(","))
+        # print(final_result)
         return render_template(MENU2_VIEW, provider=provider, region=region,
                 groups = groups, results=final_result['results'])	
+
 # RUN TEST PAGE
 @app.route('/run',methods=['GET','POST'])
 def run():
@@ -128,36 +154,90 @@ def add_rule():
 		return redirect(url_for('login'))
 	return render_template(ADD_RULE_VIEW)
 
-
+def get_rules():
+	rules = Rules.query.all()
+	r = [rule.toString() for rule in rules]
+	
+	groups = {}
+	for entry in r:
+		name = entry['name']
+		for group in entry['groups']:
+			grp = group.strip()
+			if grp not in groups:
+				print(grp)
+				groups[grp] = {'groupId' : grp, 'rules' : {}}
+				
+			if name not in groups[grp]['rules']:
+				groups[grp]['rules'][name] = {'severity': entry['severity'], 'provider': entry['provider'], 'name': name}
+				
+				
+	for g in groups:
+		groups[g]['rules'] = list(groups[g]['rules'].values())
+	final_rules = list(groups.values())
+	return final_rules
+	
 @app.route('/rules')
 def rules():
   rules = Rules.query.all()
   r = [rule.toString() for rule in rules]
-  return jsonify(meta = "success", rules = r)
-
-def get_run_results():
-  results = ComplianceRuleResults.query.all()
-  r = [result.toString() for result in results]
 
   groups = {}
+  for entry in r:
+  	name = entry['name']
+  	for group in entry['groups']:
+  		grp = group.strip()
+  		if grp not in groups:
+  			# print(grp)
+  			groups[grp] = {'groupId' : grp, 'rules' : {}}
+
+  		if name not in groups[grp]['rules']:
+  			groups[grp]['rules'][name] = {'severity': entry['severity'], 'provider': entry['provider'], 'name': name}
+
+
+  for g in groups:
+  	groups[g]['rules'] = list(groups[g]['rules'].values())
+
+  final_rules = list(groups.values())
+
+  return jsonify(final_rules)	
+
+
+def get_run_results(req_groups, req_regions, req_providers):
+  req_groups = [i.lower() for i in req_groups]
+  req_regions = [i.lower() for i in req_regions]
+  req_providers = [i.lower() for i in req_providers]
+
+  results = ComplianceRuleResults.query.all()
+  r = [result.toString() for result in results]
+  groups = {}
+#   print(json.dumps(r))
   for entry in r:
     status = 0
     if entry['result']=="PASS":
         status = 1
-    grp = entry['rule']['groups'][0]
-    rule = entry['rule']['name']
-    if grp not in groups:
-        groups[grp] = {'group_name': grp, 'rules' : {}}
-
-    if rule not in groups[grp]['rules']:
-        groups[grp]['rules'][rule]= {'name': rule, 'stats': {'pass' : 0, 'fail' : 0}, 'messages': []}
-
-    if status:
-        groups[grp]['rules'][rule]['stats']['pass']+=1
+    # grp = entry['rule']['groups'][i]
+    entry['rule']['groups'] = [j.encode('ascii','ignore') for j in entry['rule']['groups']]
+    intersect = list(set(entry['rule']['groups']) & set(res_groups))
+    if len(intersect)==0:
+        grp = "Extra"
     else:
-        groups[grp]['rules'][rule]['stats']['fail']+=1
+        grp = intersect[0]
+    if (grp.lower() in req_groups or ALL in req_groups) and (entry['region'].lower() in req_regions or ALL in req_regions) and (entry['rule']['provider'].lower() in req_providers or ALL in req_providers):
+        rule = entry['rule']['name']
+        desc = entry['rule']['description']
+        if grp not in groups:
+            groups[grp] = {'group_name': grp, 'rules' : {}}
 
-    groups[grp]['rules'][rule]['messages'].append({'message' : entry['message'], 'status': entry['result'], 'region':entry['region']})
+        if rule not in groups[grp]['rules']:
+            rule_id = 0            
+            groups[grp]['rules'][rule]= {'name': rule, 'stats': {'pass' : 0, 'fail' : 0}, 'messages': []}
+
+        if status:
+            groups[grp]['rules'][rule]['stats']['pass']+=1
+        else:
+            groups[grp]['rules'][rule]['stats']['fail']+=1
+
+        groups[grp]['rules'][rule]['messages'].append({'message' : entry['message'], 'status': entry['result'], 'region':entry['region']})
 
   for g in groups:
       groups[g]['rules'] = list(groups[g]['rules'].values())
@@ -169,7 +249,7 @@ def get_run_results():
 @app.route('/rule_results')
 def rule_results():
 #   print(json.dumps(final_result))
-  final_result = get_run_results()
+  final_result = get_run_results(res_groups,[ALL],[ALL])
   return jsonify(meta = "success", result = final_result)
 
 if __name__ == '__main__':

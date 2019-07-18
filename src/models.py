@@ -25,7 +25,7 @@ class Rules(db.Model):
 
   def toString(self):
       groups = self.rgroup.split(",")
-      return ({'name':self.name, 'description':self.description,
+      return ({'name': self.description , 'description':self.description,
           'severity':self.severity, 'groups' : groups, 'provider':self.provider})
   def __repr__(self):
     return '<Rule {} {}>'.format(seld.id, self.name)  
